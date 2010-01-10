@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/learning_algorithms">
+		<ListPreference android:key="@string/preferences_code_learning_algorithm"
+			android:title="@string/learning_algorithm" android:summary="@string/learning_algorithm_summary"
+			android:entries="@array/algorithms" android:entryValues="@array/algorithms_codes"
+			android:dialogTitle="@string/choose_learning_algorithm" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/sharing"
+		android:key="@string/sharing">
+		<PreferenceScreen android:key="@string/account_data"
+			android:title="@string/account_data" android:summary="@string/account_data_summary">
+			<PreferenceCategory android:title="@string/account_details"
+				android:key="@string/account_details">
+				<EditTextPreference android:key="@string/preferences_code_email_address"
+					android:title="@string/email_address"
+					android:dialogTitle="@string/email_address_dialog_title" />
+				<EditTextPreference android:key="@string/preferences_code_password"
+					android:title="@string/password"
+					android:dialogTitle="@string/password_dialog_title" />
+
+			</PreferenceCategory>
+		</PreferenceScreen>
+		<CheckBoxPreference android:key="@string/preferences_code_update_collections"
+			android:title="@string/update_collections" android:summary="@string/update_collections_summary" />
+	</PreferenceCategory>
+
+</PreferenceScreen>  

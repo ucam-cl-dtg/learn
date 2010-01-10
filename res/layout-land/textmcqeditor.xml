@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:orientation="vertical"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:gravity="center_horizontal" android:padding="0dip">
+	<TextView android:layout_height="wrap_content"
+		android:layout_width="fill_parent" android:text="@string/textmcqeditor_text"
+		android:textSize="16dp" android:paddingBottom="0dip" />
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal">
+		<RadioGroup android:id="@+id/correctGroup"
+			android:layout_width="wrap_content" android:layout_height="wrap_content">
+			<RadioButton android:id="@+id/option1"
+				android:layout_width="wrap_content" android:layout_height="45dip"
+				android:checked="false" />
+			<RadioButton android:id="@+id/option2"
+				android:layout_width="wrap_content" android:layout_height="45dip"
+				android:checked="false" />
+			<RadioButton android:id="@+id/option3"
+				android:layout_width="wrap_content" android:layout_height="45dip"
+				android:checked="false"/>
+			<RadioButton android:id="@+id/option4"
+				android:layout_width="wrap_content" android:layout_height="45dip"
+				android:checked="false" />
+		</RadioGroup>
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:orientation="vertical">
+			<EditText android:id="@+id/option1_text"
+				android:layout_width="fill_parent" android:layout_height="50dip" />
+			<EditText android:id="@+id/option2_text"
+				android:layout_width="fill_parent" android:layout_height="50dip" />
+			<EditText android:id="@+id/option3_text"
+				android:layout_width="fill_parent" android:layout_height="50dip" />
+			<EditText android:id="@+id/option4_text"
+				android:layout_width="fill_parent" android:layout_height="50dip" />
+		</LinearLayout>
+	</LinearLayout>
+	<Button android:id="@+id/okbutton" android:text="@string/ok"
+		android:layout_width="80dip" android:layout_height="wrap_content" />
+</LinearLayout>

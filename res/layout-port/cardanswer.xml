@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@+id/scrollView" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
+		<TableLayout android:id="@+id/questionContainer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="5px"></TableLayout>
+		<TableLayout android:id="@+id/answerContainer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="5px"></TableLayout>
+	</LinearLayout>	
+</ScrollView>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<resources>  
+<string-array name="algorithms">  
+<item>@string/all_in_a_row_once</item>  
+<item>@string/iterating_algorithm</item>
+<item>@string/leitner_algorithm</item>
+<item>@string/negative_leitner_algorithm</item>
+</string-array>  
+<string-array name="algorithms_codes">  
+<item>0</item>  
+<item>1</item>
+<item>2</item>
+<item>3</item>
+</string-array>  
+</resources>  

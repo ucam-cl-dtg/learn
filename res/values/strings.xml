@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- General application strings -->
+    <string name="hello">Hello World, MenuActivity!</string>
+    <string name="app_name">Learn!</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="importing_collections">Importing collections</string>
+    <string name="importing_collections_desc">Importing collections from files in the SD card</string>
+    <string name="collections_imported">One or more collections have just been imported from the ZIP files in the SD card.</string>
+    <string name="imported">Imported</string>
+     
+
+<!-- Main menu strings -->
+    <string name="menuLearn">Learn</string>
+    <string name="menuCreate">Editor</string>
+    <string name="menuShare">Share</string>
+    <string name="menuSettings">Settings</string>
+    <string name="menuHelp">Help</string>
+    <string name="menuLearnDesc">Do some learning</string>
+    <string name="menuCreateDesc">Create new and edit existing flashcards here</string>
+    <string name="menuShareDesc">Download new flashcards and upload yours</string>
+    <string name="menuSettingsDesc">Change the application settings</string>
+    <string name="menuHelpDesc">Find out how to use the application</string>
+	<string name="alert_cannot_locate_collections_folder_title">Error</string>
+    <string name="alert_cannot_locate_collections_folder_desc">Cannot locate and/or create the collections folder. If the SD card is removed, please insert it and restart the application.</string>
+    <string name="hiding_resources">Hiding resources</string>
+    <string name="hiding_resources_desc">All the multimedia files belonging to the collections you downloaded from the online server are being hidden...</string>
+    <string name="resources_hidden">Multimedia resources have been hidden away from other applications.</string>
+	
+<!-- Card editor --> 
+   
+    <string name="click_to_edit">Long press me to add a component</string>
+    <string name="choose_component_type">Choose component type</string>
+    <string name="edit_card">Edit card</string>
+    <string name="correct_answer">Correct answer</string>
+    <string name="edit_component">Edit component</string>
+    <string name="delete_component">Delete component</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_2">Option 2</string>
+    <string name="option_3">Option 3</string>
+    <string name="option_4">Option 4</string>
+    <string name="textmcqeditor_text">Type in the answer options into the boxes and click the radio button for the correct one.</string>
+    <string name="pick_a_file">Pick a file</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="imagemcqeditor_text">Long-click on any of the buttons to add pictures. Long-click on images to remove them. Use radio buttons to select the correct answer.</string>
+    <string name="some_of_images_empty">Some of the images are empty - please add the images and try again.</string>
+    <string name="none_of_the_answers_selected_correct">None of the answers was selected as correct.</string>
+    <string name="alert">Alert</string>
+    <string name="type_in_delay">Type in delay (in ms)</string>
+    <string name="type_in_valid_number">The number you have typed in is invalid - please type in a valid number and press OK again.</string>
+    <string name="tts_enabled">TTS enabled (UK English only)</string>
+    <string name="text">Text</string>
+    <string name="audio">Audio</string>
+    <string name="video">Video</string>
+    <string name="image">Image</string>
+    <string name="type_in_answer">Type-in answer</string>
+    <string name="multiple_choice_answer">Multiple choice answer</string>
+    <string name="record">Record</string>
+    <string name="image_based_answer">Image-based answer</string>
+    <string name="text_based_answer">Text-based answer</string>
+    <string name="question">Question</string>
+    <string name="choose_audio_source">Choose audio source</string>
+    <string name="choose_video_source">Choose video source</string>
+    <string name="choose_image_source">Choose image source</string>
+    <string name="choose_answer_type">Choose answer type</string>
+    <string name="clear_statistics">Clear statistics</string>
+    <string name="statistics_cleared">Statistics cleared</string>
+    <string name="audio_not_played_in_testing_mode">This audio is not played in testing mode.</string>
+    <string name="play_in_testing_mode">Play this audio in testing mode</string>
+    <string name="help">Help</string>
+    <string name="card_editor_help_string">Long-click on the buttons that are placed in empty components to add content. Long-click on the inactive parts of existing components to edit or remove them.</string>
+    <string name="image_could_not_be_loaded">Ooops! We weren\'t able to load the image...</string>
+    <string name="error">Error</string>   
+    
+    <!-- new -->
+    <string name="some_of_text_fields_empty">Some of the answer fields are empty</string>
+ 	
+ 	<!-- Different container titles -->    
+        <string name="oneComponent">1 component</string>
+    	<string name="twoComponents">2 1:2 components</string>
+    	<string name="twoEqualComponents">2 equal components</string>
+    	<string name="threeComponents">3 components</string>
+    
+
+<!-- Collection browser -->    
+	<string name="create_new">Create new</string>
+	<string name="delete_collection">Delete collection</string>
+    <string name="browse_collections">Browse collections</string>
+	<string name="information_collection">More information</string>
+    <string name="no_collections_yet">No collections yet</string>
+    <string name="no_collections_toast">There are no collections yet. You can create your own custom collections here by clicking MENU or download existing ones by clicking Share in the Main menu.</string>
+    <string name="collection_empty_toast">This collection is empty</string>
+    <string name="add_new_collection">Add new collection</string>
+    <string name="collection_busy_toast">You cannot select this collection as it is currently being downloaded or uploaded.</string>
+    <string name="collection_already_uploaded">Collection already uploaded</string>
+    <string name="would_you_like_to_update">Would you like to update the collection that has been uploaded previously?</string>
+    <string name="edit_title_description">Edit title and description</string>
+    <string name="title_too_short">Title is too short.</string>
+    <string name="no_collections_for_uploading_toast">You have no collections that can be uploaded yet. You can only upload the collections you have created.</string>
+    <string name="no_collections">No collections</string>
+    <string name="no_collections_for_learning_desc">You have got no collections that you could learn from. Would you like to download collections from our online server?</string>
+    <string name="no_collections_for_uploading_desc">You have got no collections that you could upload to our web server. Would you like to go to the Card Editor and create some learning material?</string>
+    
+    <!-- new -->
+    <string name="delete_collection_confirm">All the accompanying resources (audio, video clips and images) will be deleted as well. This only applies to the multimedia resources that were created using this app. Proceed?</string>
+    <string name="deleting_collection">Deleting collection</string>
+    <string name="creating_collection">Creating collection</string>
+    
+<!-- Collection view  -->
+    <string name="collection_description">Description</string>
+    <string name="card_information">Card Information</string>
+    <string name="cards">Cards</string>
+    <string name="last_seen">Last time learned</string>
+    <string name="statistics">Statistics</string>
+    <string name="your_score">Your score</string>
+    <string name="level">Current level</string>
+    <string name="advance_to_next_level">Advance to next level</string>
+    <string name="privacy_and_legal_information">Privacy and Legal Information</string>
+    <string name="collection_type">Collection type</string>
+    <string name="collection_private">Private</string>
+    <string name="collection_private_desc">This means that the cards have been created by the user and were marked as private. These cards can be shared via the web server if the user who created them decides to.</string>
+    <string name="collection_downloaded">Downloaded</string>
+    <string name="collection_downloaded_desc">This means that you have downloaded this collection from our shared collection server and you cannot redistribute this collection any further.</string>
+    <string name="regain_creator_rights">Regain author rights</string>
+    <string name="regaining_author_rights">Regaining author rights</string>
+    <string name="rights_regained">Author rights were successfully regained.</string>
+    <string name="rights_not_regained">The account you are logged in with does not have the author rights to this collection.. Is it the correct account?</string>
+        
+<!-- Collection editor -->
+    
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="type_in_text">Type in text</string>
+
+<!-- Card browser -->
+	<string name="delete_card">Delete card</string>
+	<string name="add_new_card">Add new card</string>
+	
+
+<!-- Sharing activity -->
+
+	<string name="upload">Upload</string>
+    <string name="download">Download</string>
+    <string name="uploadDesc">Upload your own collections to the web server for others to learn</string>
+    <string name="downloadDesc">Download learning material created by others</string>
+    <string name="sharing">Sharing</string>
+    <string name="collection_rating">Rating</string>
+    <string name="rate_collection">Rate the collection</string>
+    <string name="upload_successful">Upload successful</string>
+    <string name="upload_successful_full">The collection was uploaded successfully</string>
+    <string name="login">Login</string>
+    <string name="login_invalid_full">Unfortunately, the login details you provided are invalid. You can change them or register a new account in Settings > Account Data.</string>
+    <string name="by_popularity">By popularity</string>
+    <string name="by_date">By date</string>
+    <string name="date_uploaded">Date uploaded</string>
+    <string name="more_information">More information</string>
+    <string name="author_name">Author name</string>
+    <string name="update">Update</string>
+    <string name="was_uploaded_successfully">was uploaded successfully</string>
+    <string name="was_downloaded_successfully">was downloaded successfully</string>
+    <string name="collection">Collection</string>
+    <string name="download_successful">Download successful</string>
+    <string name="downloading">Downloading...</string>
+    <string name="check_for_updates">Check for updates</string>
+    <string name="upload_failed">Upload failed</string>
+    <string name="was_not_uploaded_successfully">was not uploaded successfully</string>
+    <string name="update_failed">Update failed</string>
+    <string name="was_not_updated_successfully">was not uploaded successfully.</string>
+    <string name="update_successful">Update successful</string>
+    <string name="was_updated_successfully">was updated successfully.</string>
+    <string name="upload_started">Started uploading the collection - you will be notified about the progress.</string>
+    <string name="update_started">Started updating the collection - you will be notified about the progress.</string>
+    <string name="your_rating">Your rating</string>
+    <string name="rate_it">Rate it!</string>
+    <string name="ratings">ratings</string>
+    <string name="search">Search</string>
+    <string name="rename_card">Rename card</string>
+    <string name="choose_action">Choose action</string>
+    <string name="remove_from_server">Remove from server</string>
+    <string name="removing_collection_from_server">Removing collection from server</string>
+    <string name="removing_collection_from_server_desc">Other users will not be able to download the collection any more if you choose to do that. Are you sure you want to remove your collection from the sharing server?</string>
+    <string name="collection_unshared">Collection removed from web server.</string>
+    <string name="downloads">downloads</string>
+    <string name="no_updates_exist">There are no updates released for any of the collections that you have downloaded. Check again later.</string>
+    <string name="update_found_downloading">Updates were found and download has been started - you will be notified about the progress.</string>
+    <string name="check_for_updates_desc">Update the collections that you have downloaded previously</string>
+    <string name="checking_for_updates">Checking for updates</string>
+    <string name="download_failed">Download failed</string>
+    <string name="was_not_downloaded_successfully">was not downloaded successfully.</string>
+    <string name="downloaded">Downloaded</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+    <string name="alert_network_error_title">Network error</string>
+    <string name="alert_network_error_message">We were not able to download the collection list due to network error. Check your data connection settings.</string>
+    <string name="collections_being_downloaded">collections being downloaded</string>
+    <string name="multiple_collections_being_downloaded">Multiple collections are being downloaded</string>
+    <string name="collection_being_downloaded">Collection is being downloaded</string>
+    <string name="collection_being_uploaded">Collection is being uploaded</string>
+    <string name="multiple_collections_being_uploaded">Multiple collections are being uploaded</string>
+    <string name="collection_being_updated">Collection is being updated</string>
+    <string name="multiple_collections_being_updated">Multiple collections are being updated</string>
+	<string name="loading">Loading...</string>
+	
+<!-- Learning activity -->
+    
+    <string name="no_more_cards_toast">Learning algorithm decided that this is enough for this session!</string>
+    <string name="answer_correct">Answer correct!!!</string>
+    <string name="answer_incorrect">Answer incorrect!!!</string>
+    <string name="message">Message</string>
+    <string name="card">Card</string>
+    <string name="report_error">Report error</string>
+    <string name="show_next">Show next</string>
+   	<string name="report">Report</string>
+   	
+   	<!-- new -->
+   	<string name="learning_algorithms_introduction">You are about to start learning your first collection!\n\nCards can be shown in either learning (when the correct answer is shown to you) or testing mode (when you have to type in the answer or choose one of different options).\n\nThere are a few different learning algorithms. These are the parts of the application that decide which card will be shown next and the mode it will be shown in. The default learning algorithm is Negative Leitner which assumes that you know the cards and starts testing you from the very first time.\n\nYou can always change the learning algorithm in Settings page. There is some more information on how different algorithms work in the Help page.</string>
+   	<string name="learning">Learning</string>
+    
+    
+<!-- Settings -->
+
+    <string name="learning_algorithms">Learning algorithms</string>
+    <string name="learning_algorithm">Learning algorithm</string>
+    <string name="learning_algorithm_summary">Choose one of the learning algorithms that decide which card to show you next</string>
+    <string name="choose_learning_algorithm">Choose learning algorithm</string>
+    <string name="update_collections">Update collections</string>
+    <string name="update_collections_summary">Check for updates on application startup.</string>
+    <string name="never">never</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="retype_password">Retype password</string>
+    <string name="full_name">Full name</string>
+    <string name="no_account_yet_toast">No account for collection sharing has been created yet. Please fill in this short form to get started.</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="registration">Registration</string>
+    <string name="communicating_with_server">Communicating with the server</string>
+    <string name="email_invalid">The email address you typed in is invalid.</string>
+    <string name="email_already_registered">The email address is already registered.</string>
+    <string name="password_too_short">Password you typed in is too short.</string>
+    <string name="full_name_invalid">Full name you typed in is invalid.</string>
+    <string name="system_fault">System error has occurred - please try again later.</string>
+    <string name="registration_completed">Registration complete</string>
+    <string name="clear_account_data">Clear account data</string>
+    <string name="clear_account_data_summary">This will delete the login data stored for sharing purposes.</string>
+    <string name="are_you_sure_you_want_to_delete_account_data">Are you sure you want to clear the account data? You will need to provide another login or sign up in order to use sharing again.</string>
+    <string name="account_data_cleared">Account data cleared</string>
+    <string name="account_data">Account data</string>
+    <string name="account_data_summary">You can change or clear your account details here.</string>
+    <string name="account_details">Account details</string>
+    <string name="email_address_dialog_title">Type in the email address</string>
+    <string name="password_dialog_title">Type in the password</string>
+    <string name="email_address_summary">Email address for logging in can be changed here</string>
+    <string name="password_summary">Password can be changed here</string>
+    <string name="register_new_account">Register new account</string>
+    <string name="register_new_account_summary">You can register a new sharing account here</string>
+    <string name="are_you_sure_you_want_register_new_account">Are you sure you want to register a new account? This will override the account login details of your previous account if you have one set up.</string>
+    <string name="connection_problem">Internet connection problem occured - check whether you are connected to internet and try again.</string>
+    <string name="login_invalid">Unfortunately, the login details you provided are invalid.</string>
+    <string name="got_account_already">Have an account already?</string>
+
+<!-- Learning algorithms -->
+	<string name="all_in_a_row_once">All-in-a-row once</string>
+	<string name="iterating_algorithm">Iterating algorithm</string>
+	<string name="leitner_algorithm">Leitner algorithm</string>
+	<string name="negative_leitner_algorithm">Negative Leitner</string>
+
+
+<!-- Preference codes - SHOULD NOT BE REPLACED -->
+    <string name="preferences_code_email_address">emailAddress</string>
+    <string name="preferences_code_password">password</string>
+    <string name="preferences_code_account_registered">accountRegistered</string>
+    <string name="preferences_unique_id">uniqueID</string>
+    <string name="preferences_code_update_collections">updateCollections</string>
+    <string name="preferences_code_learning_algorithm">learningAlgorithm</string>
+    <string name="preferences_code_resources_hidden">resourcesHidden</string>
+
+    
+</resources>

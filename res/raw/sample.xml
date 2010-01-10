@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<card containerType="3">
+	<element componentID="1" type="image" src="file:///sdcard/android.png" width="0" height="0" />
+	<element componentID="0" type="text" value="Hello world" />
+	<element componentID="2" type="answer" answer_type="mc_text">
+		<option value="Incorrect option" correct="false" />
+		<option value="Incorrect option" correct="false" />
+		<option value="Correct option" correct="true" />
+		<option value="Incorrect option" correct="false" />
+	</element>
+</card>
+
