@@ -286,8 +286,12 @@ public class CollectionBrowser extends ListActivity
 	{
 		CardDBAdapter db = new CardDBAdapter();
 		db.open(collectionID);
-		int cardCount = db.getCardCount();
-		db.close();
+		int cardCount;
+		try {
+		  cardCount = db.getCardCount();
+		} finally {
+		  db.close();
+		}
 
 		if (cardCount < 1)
 		{

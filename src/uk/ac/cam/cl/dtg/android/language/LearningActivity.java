@@ -312,8 +312,11 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 		// get all the cards
 		CardDBAdapter db = new CardDBAdapter();
 		db.open(collectionID);
-		mCards = db.getAllCards();
-		db.close();
+		try {
+		  mCards = db.getAllCards();
+		} finally {
+		  db.close();
+		}
 
 		// update last learned in the application DB
 		ApplicationDBAdapter appDB = new ApplicationDBAdapter(this);

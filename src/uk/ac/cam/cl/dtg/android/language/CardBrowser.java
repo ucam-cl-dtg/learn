@@ -149,8 +149,11 @@ public class CardBrowser extends ListActivity
 		CardDBAdapter db = new CardDBAdapter();
 
 		db.open(mCollectionID);
-		mCards = db.getAllCards();
-		db.close();
+		try {
+		  mCards = db.getAllCards();
+		} finally {
+		  db.close();
+		}
 
 		mAdapter = new CardAdapter(this, R.layout.menurow, mCards);
 		setListAdapter(mAdapter);
@@ -246,8 +249,11 @@ public class CardBrowser extends ListActivity
 
 			CardDBAdapter db = new CardDBAdapter();
 			db.open(mCollectionID);
-			db.deleteCard(cardID);
-			db.close();
+			try {
+			  db.deleteCard(cardID);
+			} finally {
+			  db.close();
+			}
 
 			fillData();
 
@@ -267,8 +273,12 @@ public class CardBrowser extends ListActivity
 
 			CardDBAdapter db2 = new CardDBAdapter();
 			db2.open(mCollectionID);
-			Card c = db2.getCardById(cardID);
-			db2.close();
+			Card c;
+			try {
+			  c = db2.getCardById(cardID);
+			} finally {
+			  db2.close();
+			}
 
 			newNameField.setText(c.getTitle());
 
@@ -283,8 +293,11 @@ public class CardBrowser extends ListActivity
 				{
 					CardDBAdapter db3 = new CardDBAdapter();
 					db3.open(mCollectionID);
-					db3.updateTitle(cardID, newNameField.getEditableText().toString());
-					db3.close();
+					try {
+					  db3.updateTitle(cardID, newNameField.getEditableText().toString());
+					} finally {
+					  db3.close();
+					}
 
 					fillData();
 				}

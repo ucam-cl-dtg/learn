@@ -311,9 +311,12 @@ public class ResourceHelper
 
 			CardDBAdapter db = new CardDBAdapter();
 			db.open(collectionID);
-
-			Card card = db.getCardById(cardID);
-			db.close();
+			Card card;
+			try {
+			  card = db.getCardById(cardID);
+			} finally {
+			  db.close();
+			}
 
 			MyLog.d(LOG_TAG, "Ready to read card, XML of it is - " + card.getXmlDescription());
 

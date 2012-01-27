@@ -136,12 +136,13 @@ public class CardEditor extends Activity implements AnswerListener
 				{
 					CardDBAdapter db = new CardDBAdapter();
 					db.open(mCollectionID);
-		
-					MyLog.d(LOG_TAG, "Getting the card with id - " + id);
-		
-					mCard = db.getCardById((long) id);
-		
-					db.close();
+					try {
+					  MyLog.d(LOG_TAG, "Getting the card with id - " + id);
+
+					  mCard = db.getCardById((long) id);
+					} finally {
+					  db.close();
+					}
 					if (mCard != null)
 					{
 						initializeFromXML(mCard.getXmlDescription());
@@ -214,10 +215,11 @@ public class CardEditor extends Activity implements AnswerListener
 	
 					CardDBAdapter db = new CardDBAdapter();
 					db.open(mCollectionID);
-	
-					mCard = db.getCardById((long) id);
-	
-					db.close();
+					try {
+					  mCard = db.getCardById((long) id);
+					} finally {
+					  db.close();
+					}
 					if (mCard != null)
 					{
 						initializeFromXML(mCard.getXmlDescription());
@@ -589,19 +591,20 @@ public class CardEditor extends Activity implements AnswerListener
 				
 				CardDBAdapter db = new CardDBAdapter();
 				db.open(mCollectionID);
-		
-				if (mCurrentAction == ACTION_NEW)
-				{
-					long id = db.insertCard("Untitled", 0, type, xmlDesc, 0, "");
-					mCurrentAction = ACTION_EDIT;
-					mCard = db.getCardById(id);
-				} else if (mCurrentAction == ACTION_EDIT)
-				{
-					if (mCard != null)
-						db.updateContent(mCard.getId(), xmlDesc, type);
+				try {
+				  if (mCurrentAction == ACTION_NEW)
+				  {
+				    long id = db.insertCard("Untitled", 0, type, xmlDesc, 0, "");
+				    mCurrentAction = ACTION_EDIT;
+				    mCard = db.getCardById(id);
+				  } else if (mCurrentAction == ACTION_EDIT)
+				  {
+				    if (mCard != null)
+				      db.updateContent(mCard.getId(), xmlDesc, type);
+				  }
+				} finally {
+				  db.close();
 				}
-				
-				db.close();
 				
 				this.setResult(RESULT_OK);
 			}

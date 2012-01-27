@@ -145,8 +145,12 @@ public class Audio extends Component
 
 			CardDBAdapter db = new CardDBAdapter();
 			db.open(mCollectionID);
-			String suffix = db.getResource(mResourceID).getSuffix();
-			db.close();
+			String suffix;
+			try {
+			  suffix = db.getResource(mResourceID).getSuffix();
+			} finally {
+			  db.close();
+			}
 
 			mMediaPlayer.setDataSource(ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID
 					+ "/" + mResourceID + "." + suffix);

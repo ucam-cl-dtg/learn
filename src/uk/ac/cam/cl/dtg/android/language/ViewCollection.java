@@ -174,8 +174,12 @@ public class ViewCollection extends Activity
 			// get the card count in the collection
 			CardDBAdapter db = new CardDBAdapter();
 			db.open(mCollection.getRowID());
-			int cardCount = db.getCardCount();
-			db.close();
+			int cardCount;
+			try {
+			  cardCount = db.getCardCount();
+			} finally {
+			  db.close();
+			}
 
 			cardCountView.setText(String.valueOf(cardCount));
 
