@@ -2,53 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
-    android:padding="6dip">
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
     <FrameLayout
         android:id="@+id/iconLayout"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter"
         android:layout_marginRight="6dip" />
-    <LinearLayout
-        android:orientation="vertical"
+   <LinearLayout
         android:layout_width="0dip"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:layout_height="fill_parent">
+        android:orientation="vertical" >
+
         <LinearLayout
-        	android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:gravity="center_vertical">
-        
-	        <TextView
-	            android:id="@+id/toptext"
-	            android:layout_width="0dp"
-	            android:layout_weight="1"
-	            android:layout_height="fill_parent"
-	            android:gravity="center_vertical"
-	            android:ellipsize="marquee"
-	            android:singleLine="true"
-	            android:textColor="#FFFFFF"
-	        />
-	        <RatingBar
-	       		android:id="@+id/ratingbar"
-	            android:layout_width="wrap_content"
-	            android:layout_weight="0"
-	            android:layout_height="wrap_content"
-	            android:gravity="right"
-	            style="?android:attr/ratingBarStyleSmall" 
-	            android:numStars="5"
-	        />
-        </LinearLayout>
-        <TextView
             android:layout_width="fill_parent"
             android:layout_height="0dip"
-            android:layout_weight="1" 
+            android:layout_weight="1"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/toptext"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:ellipsize="marquee"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp" />
+
+            <RatingBar
+                android:id="@+id/ratingbar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0"
+                android:gravity="right"
+                android:numStars="5" />
+        </LinearLayout>
+
+        <TextView
             android:id="@+id/bottomtext"
-            android:singleLine="true"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
             android:ellipsize="marquee"
-        />
+            android:singleLine="true"
+            android:textSize="14dp" />
     </LinearLayout>
+
 </LinearLayout>
