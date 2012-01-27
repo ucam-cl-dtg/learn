@@ -40,7 +40,14 @@ public class ApplicationDBAdapter
 	public static final String KEY_COLLECTIONS_LAST_LEARNED = "last_learned";
 	public static final String KEY_COLLECTIONS_GLOBAL_ID = "global_id";
 	public static final String KEY_COLLECTIONS_UPLOAD_TIME = "last_upload_time";
-
+	
+	private static final String[] COLLECTIONS_COLUMNS = new String[]
+	    { KEY_COLLECTIONS_ROWID, KEY_COLLECTIONS_TITLE, KEY_COLLECTIONS_AUTHORID,
+    KEY_COLLECTIONS_TYPE, KEY_COLLECTIONS_TAGS, KEY_COLLECTIONS_RATING,
+    KEY_COLLECTIONS_UPDATETIME, KEY_COLLECTIONS_PATHTODB, KEY_COLLECTIONS_DESCRIPTION,
+    KEY_COLLECTIONS_LAST_LEARNED, KEY_COLLECTIONS_UPLOAD_TIME,
+    KEY_COLLECTIONS_GLOBAL_ID };
+	
 	public static final String KEY_STATISTICS_ROWID = "_id";
 	public static final String KEY_STATISTICS_COLLECTION_ID = "collection_id";
 	public static final String KEY_STATISTICS_TESTED = "tested";
@@ -214,12 +221,7 @@ public class ApplicationDBAdapter
 	 */
 	public ArrayList<Collection> getAllCollections()
 	{
-		Cursor cursor = mDb.query(DATABASE_TABLE_COLLECTIONS, new String[]
-		{ KEY_COLLECTIONS_ROWID, KEY_COLLECTIONS_TITLE, KEY_COLLECTIONS_AUTHORID,
-				KEY_COLLECTIONS_TYPE, KEY_COLLECTIONS_TAGS, KEY_COLLECTIONS_RATING,
-				KEY_COLLECTIONS_UPDATETIME, KEY_COLLECTIONS_PATHTODB, KEY_COLLECTIONS_DESCRIPTION,
-				KEY_COLLECTIONS_LAST_LEARNED, KEY_COLLECTIONS_UPLOAD_TIME,
-				KEY_COLLECTIONS_GLOBAL_ID }, null, null, null, null, KEY_COLLECTIONS_RATING
+		Cursor cursor = mDb.query(DATABASE_TABLE_COLLECTIONS, COLLECTIONS_COLUMNS, null, null, null, null, KEY_COLLECTIONS_RATING
 				+ " DESC");
 
 		ArrayList<Collection> result = new ArrayList<Collection>();
@@ -230,7 +232,7 @@ public class ApplicationDBAdapter
 			{
 				cursor.moveToNext();
 
-				result.add(new Collection(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_ROWID)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TITLE)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_RATING)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TYPE)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TAGS)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPDATETIME)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_PATHTODB)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_DESCRIPTION)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_LAST_LEARNED)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPLOAD_TIME)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_GLOBAL_ID))));
+				result.add(collectionFromCursor(cursor));
 
 			}
 		}
@@ -247,12 +249,7 @@ public class ApplicationDBAdapter
 	 */
 	public ArrayList<Collection> getUploadableCollections()
 	{
-		Cursor cursor = mDb.query(DATABASE_TABLE_COLLECTIONS, new String[]
-		{ KEY_COLLECTIONS_ROWID, KEY_COLLECTIONS_TITLE, KEY_COLLECTIONS_AUTHORID,
-				KEY_COLLECTIONS_TYPE, KEY_COLLECTIONS_TAGS, KEY_COLLECTIONS_RATING,
-				KEY_COLLECTIONS_UPDATETIME, KEY_COLLECTIONS_PATHTODB, KEY_COLLECTIONS_DESCRIPTION,
-				KEY_COLLECTIONS_LAST_LEARNED, KEY_COLLECTIONS_UPLOAD_TIME,
-				KEY_COLLECTIONS_GLOBAL_ID }, UPLOADABLE_WHERE_STRING, null, null, null, null);
+		Cursor cursor = mDb.query(DATABASE_TABLE_COLLECTIONS, COLLECTIONS_COLUMNS, UPLOADABLE_WHERE_STRING, null, null, null, null);
 
 		ArrayList<Collection> result = new ArrayList<Collection>();
 
@@ -262,7 +259,7 @@ public class ApplicationDBAdapter
 			{
 				cursor.moveToNext();
 
-				result.add(new Collection(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_ROWID)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TITLE)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_RATING)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TYPE)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TAGS)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPDATETIME)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_PATHTODB)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_DESCRIPTION)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_LAST_LEARNED)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPLOAD_TIME)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_GLOBAL_ID))));
+				result.add(collectionFromCursor(cursor));
 
 			}
 		}
@@ -280,12 +277,7 @@ public class ApplicationDBAdapter
 	 */
 	public ArrayList<Collection> getEditableCollections()
 	{
-		Cursor cursor = mDb.query(DATABASE_TABLE_COLLECTIONS, new String[]
-		{ KEY_COLLECTIONS_ROWID, KEY_COLLECTIONS_TITLE, KEY_COLLECTIONS_AUTHORID,
-				KEY_COLLECTIONS_TYPE, KEY_COLLECTIONS_TAGS, KEY_COLLECTIONS_RATING,
-				KEY_COLLECTIONS_UPDATETIME, KEY_COLLECTIONS_PATHTODB, KEY_COLLECTIONS_DESCRIPTION,
-				KEY_COLLECTIONS_LAST_LEARNED, KEY_COLLECTIONS_UPLOAD_TIME,
-				KEY_COLLECTIONS_GLOBAL_ID }, EDITABLE_WHERE_STRING, null, null, null, null);
+		Cursor cursor = mDb.query(DATABASE_TABLE_COLLECTIONS, COLLECTIONS_COLUMNS, EDITABLE_WHERE_STRING, null, null, null, null);
 
 		ArrayList<Collection> result = new ArrayList<Collection>();
 
@@ -295,7 +287,7 @@ public class ApplicationDBAdapter
 			{
 				cursor.moveToNext();
 
-				result.add(new Collection(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_ROWID)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TITLE)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_RATING)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TYPE)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TAGS)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPDATETIME)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_PATHTODB)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_DESCRIPTION)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_LAST_LEARNED)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPLOAD_TIME)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_GLOBAL_ID))));
+				result.add(collectionFromCursor(cursor));
 
 			}
 		}
@@ -314,18 +306,13 @@ public class ApplicationDBAdapter
 	 */
 	public Collection getCollectionById(Long rowID)
 	{
-		Cursor cursor = mDb.query(true, DATABASE_TABLE_COLLECTIONS, new String[]
-		{ KEY_COLLECTIONS_ROWID, KEY_COLLECTIONS_TITLE, KEY_COLLECTIONS_AUTHORID,
-				KEY_COLLECTIONS_TYPE, KEY_COLLECTIONS_TAGS, KEY_COLLECTIONS_RATING,
-				KEY_COLLECTIONS_UPDATETIME, KEY_COLLECTIONS_PATHTODB, KEY_COLLECTIONS_DESCRIPTION,
-				KEY_COLLECTIONS_LAST_LEARNED, KEY_COLLECTIONS_UPLOAD_TIME,
-				KEY_COLLECTIONS_GLOBAL_ID }, KEY_COLLECTIONS_ROWID + "=" + rowID, null, null, null,
+		Cursor cursor = mDb.query(true, DATABASE_TABLE_COLLECTIONS, COLLECTIONS_COLUMNS, KEY_COLLECTIONS_ROWID + "=" + rowID, null, null, null,
 				null, null);
 		try
 		{
 			cursor.moveToFirst();
 
-			Collection c = new Collection(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_ROWID)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TITLE)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_RATING)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TYPE)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TAGS)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPDATETIME)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_PATHTODB)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_DESCRIPTION)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_LAST_LEARNED)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPLOAD_TIME)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_GLOBAL_ID)));
+			Collection c = collectionFromCursor(cursor);
 
 			cursor.close();
 
@@ -352,18 +339,15 @@ public class ApplicationDBAdapter
 	 */
 	public Collection getCollectionByGlobalID(Long globalID)
 	{
-		Cursor cursor = mDb.query(true, DATABASE_TABLE_COLLECTIONS, new String[]
-		{ KEY_COLLECTIONS_ROWID, KEY_COLLECTIONS_TITLE, KEY_COLLECTIONS_AUTHORID,
-				KEY_COLLECTIONS_TYPE, KEY_COLLECTIONS_TAGS, KEY_COLLECTIONS_RATING,
-				KEY_COLLECTIONS_UPDATETIME, KEY_COLLECTIONS_PATHTODB, KEY_COLLECTIONS_DESCRIPTION,
-				KEY_COLLECTIONS_LAST_LEARNED, KEY_COLLECTIONS_UPLOAD_TIME,
-				KEY_COLLECTIONS_GLOBAL_ID }, KEY_COLLECTIONS_GLOBAL_ID + "=" + globalID, null,
+	  try
+    {
+		Cursor cursor = mDb.query(true, DATABASE_TABLE_COLLECTIONS, COLLECTIONS_COLUMNS, KEY_COLLECTIONS_GLOBAL_ID + "=" + globalID, null,
 				null, null, null, null);
 		try
 		{
 			cursor.moveToFirst();
 
-			Collection c = new Collection(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_ROWID)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TITLE)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_RATING)), cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TYPE)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TAGS)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPDATETIME)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_PATHTODB)), cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_DESCRIPTION)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_LAST_LEARNED)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPLOAD_TIME)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_GLOBAL_ID)));
+			Collection c = collectionFromCursor(cursor);
 
 			cursor.close();
 
@@ -375,6 +359,20 @@ public class ApplicationDBAdapter
 		}
 	}
 
+	private Collection collectionFromCursor(Cursor cursor){
+	  return new Collection(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_ROWID)),
+        cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TITLE)),
+        cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_RATING)),
+        cursor.getInt(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TYPE)),
+        cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_TAGS)),
+        cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPDATETIME)),
+        cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_PATHTODB)),
+        cursor.getString(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_DESCRIPTION)),
+        cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_LAST_LEARNED)),
+        cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_UPLOAD_TIME)),
+        cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_COLLECTIONS_GLOBAL_ID)));
+	}
+	
 	/**
 	 * 
 	 * Method to get number of uploadable collections. Again, which collections
@@ -645,7 +643,11 @@ public class ApplicationDBAdapter
 				else
 					tested = false;
 
-				result.add(new StatisticsItem(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_ROWID)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_COLLECTION_ID)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_CARD_ID)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_TIME)), cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_EXPOSURE_TIME)), correct, tested));
+				result.add(new StatisticsItem(cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_ROWID)),
+				    cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_COLLECTION_ID)),
+				    cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_CARD_ID)),
+				    cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_TIME)),
+				    cursor.getLong(cursor.getColumnIndex(ApplicationDBAdapter.KEY_STATISTICS_EXPOSURE_TIME)), correct, tested));
 
 				i++;
 
