@@ -318,8 +318,11 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 		// update last learned in the application DB
 		ApplicationDBAdapter appDB = new ApplicationDBAdapter(this);
 		appDB.open();
-		appDB.updateLastLearned(mCollectionID);
-		appDB.close();
+		try {
+		  appDB.updateLastLearned(mCollectionID);
+		} finally {
+		  appDB.close();
+		}
 
 		// initialize statistics helper and load statistics
 		mStatisticsHelper = new StatisticsHelper(this, mCollectionID);
@@ -510,10 +513,12 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 
 			ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 			db.open();
-
-			Collection c = db.getCollectionById(mCollectionID);
-
-			db.close();
+			Collection c;
+			try {
+			  c = db.getCollectionById(mCollectionID);
+			} finally {
+			  db.close();
+			}
 
 			if (c.getType() == Collection.TYPE_DOWNLOADED_UNLOCKED)
 			{

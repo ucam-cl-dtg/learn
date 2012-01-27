@@ -173,61 +173,63 @@ public class ApplicationInitializer
 				// get the file list from the application folder
 				File collectionsFolder = new File(COLLECTIONS_FOLDER);
 
+				boolean imported = false;
+
 				ApplicationDBAdapter db = new ApplicationDBAdapter(mContext);
 				db.open();
 
-				boolean imported = false;
+				try {
+				  File[] files = collectionsFolder.listFiles();
+				  for (File f : files)
+				  {
 
-				File[] files = collectionsFolder.listFiles();
-				for (File f : files)
-				{
+				    if (!f.isDirectory())
+				    {
+				      // if it is a zip file, try importing
+				      if (f.getName().endsWith("zip"))
+				      {
+				        // try unzipping it and importing
+				        String formattedTime = (String) DateFormat.getDateFormat(mContext).format(
+				            new Date(System.currentTimeMillis()));
 
-					if (!f.isDirectory())
-					{
-						// if it is a zip file, try importing
-						if (f.getName().endsWith("zip"))
-						{
-							// try unzipping it and importing
-							String formattedTime = (String) DateFormat.getDateFormat(mContext).format(
-									new Date(System.currentTimeMillis()));
+				        String title = mContext.getString(R.string.imported) + " "
+				            + formattedTime;
 
-							String title = mContext.getString(R.string.imported) + " "
-									+ formattedTime;
+				        long id = db.insertCollection(title,
+				            Collection.TYPE_PRIVATE_NON_SHARED, 0, "", -1);
 
-							long id = db.insertCollection(title,
-									Collection.TYPE_PRIVATE_NON_SHARED, 0, "", -1);
+				        // try unzipping, the files are to be deleted if
+				        // import is unsuccessful
+				        boolean unzipResult = ServerHelper.unzipFile(id, f.getName(), true);
 
-							// try unzipping, the files are to be deleted if
-							// import is unsuccessful
-							boolean unzipResult = ServerHelper.unzipFile(id, f.getName(), true);
+				        if (!unzipResult)
+				        {
+				          db.deleteCollection(id);
+				        } else
+				        {
+				          // check whether collection folder contains the
+				          // data.db file
+				          File dbFile = new File(COLLECTIONS_FOLDER + id + "/data.db");
+				          if (dbFile.exists())
+				          {
+				            // this means that we have just imported a
+				            // valid
+				            // collection
+				            imported = true;
+				          } else
+				          {
+				            // no database file - no use from this
+				            // collection
+				            db.deleteCollection(id);
+				          }
 
-							if (!unzipResult)
-							{
-								db.deleteCollection(id);
-							} else
-							{
-								// check whether collection folder contains the
-								// data.db file
-								File dbFile = new File(COLLECTIONS_FOLDER + id + "/data.db");
-								if (dbFile.exists())
-								{
-									// this means that we have just imported a
-									// valid
-									// collection
-									imported = true;
-								} else
-								{
-									// no database file - no use from this
-									// collection
-									db.deleteCollection(id);
-								}
-
-							}
-						}
-					}
+				        }
+				      }
+				    }
+				  }
+				} finally {
+				  db.close();
 				}
-
-				db.close();
 
 				if (imported)
 					handler.sendEmptyMessage(MESSAGE_IMPORTED);

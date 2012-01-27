@@ -229,8 +229,11 @@ public class ServerHelper
 			// release the lock from the collection
 			ApplicationDBAdapter db = new ApplicationDBAdapter(mContext);
 			db.open();
-			db.updateCollectionType(collectionID, collectionType);
-			db.close();
+			try {
+			  db.updateCollectionType(collectionID, collectionType);
+			} finally {
+			  db.close();
+			}
 
 			return false;
 		}
@@ -263,8 +266,12 @@ public class ServerHelper
 			// get the collection
 			ApplicationDBAdapter db = new ApplicationDBAdapter(context);
 			db.open();
-			Collection collection = db.getCollectionById(collectionID);
-			db.close();
+			Collection collection;
+			try {
+			  collection = db.getCollectionById(collectionID);
+			} finally {
+			  db.close();
+			}
 
 			// add the collection attributes
 			form.addPart("title", new StringBody(collection.getTitle()));
@@ -375,8 +382,12 @@ public class ServerHelper
 			// get the collection
 			ApplicationDBAdapter db = new ApplicationDBAdapter(context);
 			db.open();
-			Collection collection = db.getCollectionById(collectionID);
-			db.close();
+			Collection collection;
+			try {
+			  collection = db.getCollectionById(collectionID);
+			} finally {
+			  db.close();
+			}
 
 			// add the collection attributes
 			form.addPart("title", new StringBody(collection.getTitle()));
@@ -634,8 +645,12 @@ public class ServerHelper
 			// get the collection
 			ApplicationDBAdapter db = new ApplicationDBAdapter(context);
 			db.open();
-			ArrayList<Collection> collections = db.getAllCollections();
-			db.close();
+      ArrayList<Collection> collections;
+      try {
+        collections = db.getAllCollections();
+      } finally {
+        db.close();
+      }
 
 			StringBuilder requestString = new StringBuilder();
 			for (Collection c : collections)

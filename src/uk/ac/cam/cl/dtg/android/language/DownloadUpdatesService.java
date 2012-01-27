@@ -84,33 +84,29 @@ public class DownloadUpdatesService extends Service implements Runnable
 					unlockAndShowNotification(localID);
 				} else
 				{
-					// unlock the collection			
-					ApplicationDBAdapter db = new ApplicationDBAdapter(this);
-					
-					db.open();
-					
-					db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
-					
-					db.close();
-					showFailedNotification(localID);
+				  unlockCollectionAndShowFailed(localID);
 				}
 			} else
 			{
-				// unlock the collection			
-				ApplicationDBAdapter db = new ApplicationDBAdapter(this);
-				
-				db.open();
-				
-				db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
-				
-				db.close();		
-				showFailedNotification(localID);
-				
+				unlockCollectionAndShowFailed(localID);
 			}
 			updateOngoingNotificationOnFinish();
 			
 		}
-	}	
+	}
+
+	private void unlockCollectionAndShowFailed(long localID){
+	// unlock the collection     
+    ApplicationDBAdapter db = new ApplicationDBAdapter(this);
+    
+    db.open();
+    try {
+      db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
+    } finally {
+      db.close();
+    }
+    showFailedNotification(localID);
+	}
 
 	/**
 	 * 
@@ -127,10 +123,13 @@ public class DownloadUpdatesService extends Service implements Runnable
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		Collection collection = db.getCollectionById(localID);
-		db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
-
-		db.close();
+		Collection collection;
+		try {
+		  collection = db.getCollectionById(localID);
+		  db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_updated_successfully);
@@ -163,11 +162,13 @@ public class DownloadUpdatesService extends Service implements Runnable
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		
-		db.updateCollectionType(collectionID, Collection.TYPE_PRIVATE_SHARED_COLLECTION);
-		Collection collection = db.getCollectionById(collectionID);
-
-		db.close();
+		Collection collection;
+		try {
+		  db.updateCollectionType(collectionID, Collection.TYPE_PRIVATE_SHARED_COLLECTION);
+		  collection = db.getCollectionById(collectionID);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_not_updated_successfully); // expanded

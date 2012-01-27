@@ -73,11 +73,13 @@ public class CollectionEditor extends Activity
 			{
 				ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 				db.open();
-
-				final Collection c = db.getCollectionById(intent.getLongExtra(INTENT_COLLECTION_ID,
-						-1));
-
-				db.close();
+				final Collection c;
+				try {
+				  c = db.getCollectionById(intent.getLongExtra(INTENT_COLLECTION_ID,
+				      -1));
+				} finally {
+				  db.close();
+				}
 
 				titleView.setText(c.getTitle());
 				descView.setText(c.getDescription());
@@ -144,9 +146,12 @@ public class CollectionEditor extends Activity
 			{
 				ApplicationDBAdapter db = new ApplicationDBAdapter(CollectionEditor.this);
 				db.open();
-				db.insertCollection(titleFinal, Collection.TYPE_PRIVATE_NON_SHARED, 0, descFinal,
-						-1);
-				db.close();
+				try {
+				  db.insertCollection(titleFinal, Collection.TYPE_PRIVATE_NON_SHARED, 0, descFinal,
+				      -1);
+				} finally {
+				  db.close();
+				}
 				myHandler.sendEmptyMessage(0);
 			}
 		});
@@ -187,10 +192,11 @@ public class CollectionEditor extends Activity
 	{
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-
-		db.updateTitleAndDescription(collectionID, title, description);
-
-		db.close();
+		try {
+		  db.updateTitleAndDescription(collectionID, title, description);
+		} finally {
+		  db.close();
+		}
 
 		this.setResult(RESULT_OK);
 		this.finish();

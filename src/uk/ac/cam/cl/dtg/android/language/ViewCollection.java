@@ -61,8 +61,11 @@ public class ViewCollection extends Activity
 
 			mDBAdapter = new ApplicationDBAdapter(this);
 			mDBAdapter.open();
-			mCollection = mDBAdapter.getCollectionById(collectionID);
-			mDBAdapter.close();
+			try {
+			  mCollection = mDBAdapter.getCollectionById(collectionID);
+			} finally {
+			  mDBAdapter.close();
+			}
 
 			if (mCollection != null)
 			{
@@ -184,8 +187,11 @@ public class ViewCollection extends Activity
 				{
 					ApplicationDBAdapter db = new ApplicationDBAdapter(ViewCollection.this);
 					db.open();
-					db.clearStatisticsForCollection(mCollection.getRowID());
-					db.close();
+					try {
+					  db.clearStatisticsForCollection(mCollection.getRowID());
+					} finally {
+					  db.close();
+					}
 
 					scoreBar.setProgress(0);
 
@@ -249,8 +255,11 @@ public class ViewCollection extends Activity
 				// update the database
 				ApplicationDBAdapter db = new ApplicationDBAdapter(ViewCollection.this);
 				db.open();
-				db.updateRating(mCollection.getRowID(), (int) rating);
-				db.close();
+				try {
+				  db.updateRating(mCollection.getRowID(), (int) rating);
+				} finally {
+				  db.close();
+				}
 
 				if (mCollection.getType() == Collection.TYPE_DOWNLOADED_UNLOCKED)
 				{
@@ -322,10 +331,12 @@ public class ViewCollection extends Activity
 									
 									ApplicationDBAdapter db = new ApplicationDBAdapter(ViewCollection.this);
 									db.open();
-									
-									db.updateCollectionType(mCollection.getRowID(), Collection.TYPE_PRIVATE_SHARED_COLLECTION);
-									
-									db.close();
+                    try {
+                      db.updateCollectionType(mCollection.getRowID(),
+                          Collection.TYPE_PRIVATE_SHARED_COLLECTION);
+                    } finally {
+                      db.close();
+                    }
 									
 									if (mCollectionTypeField != null)
 										mCollectionTypeField.setText(R.string.collection_private);

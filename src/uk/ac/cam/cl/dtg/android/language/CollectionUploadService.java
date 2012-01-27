@@ -66,8 +66,11 @@ public class CollectionUploadService extends Service implements Runnable
 		// change the collection type to "currently uploading"
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		db.updateCollectionType(collectionID, Collection.TYPE_CURRENTLY_UPLOADING);
-		db.close();
+		try {
+		  db.updateCollectionType(collectionID, Collection.TYPE_CURRENTLY_UPLOADING);
+		} finally {
+		  db.close();
+		}
 		
 		updateOngoingNotificationOnStart();
 		
@@ -114,9 +117,13 @@ public class CollectionUploadService extends Service implements Runnable
 		CharSequence contentTitle = getString(R.string.app_name);
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
+		Collection collection;
 		db.open();
-		Collection collection = db.getCollectionById(localID);
-		db.close();
+		try {
+		  collection = db.getCollectionById(localID);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_uploaded_successfully);
@@ -151,10 +158,12 @@ public class CollectionUploadService extends Service implements Runnable
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-
-		Collection collection = db.getCollectionById(collectionID);
-
-		db.close();
+		Collection collection;
+		try {
+		  collection = db.getCollectionById(collectionID);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_not_uploaded_successfully); // expanded

@@ -68,14 +68,16 @@ public class CollectionUpdateService extends Service implements Runnable
 		// change the collection type to "currently uploading"
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		db.updateCollectionType(mCollectionID, Collection.TYPE_CURRENTLY_UPLOADING);
+		try {
+		  db.updateCollectionType(mCollectionID, Collection.TYPE_CURRENTLY_UPLOADING);
 
-		Collection c = db.getCollectionById(mCollectionID);
-		// if the IDs don't match - return
-		if (c.getGlobalID() != mGlobalID)
-			return;
-
-		db.close();
+		  Collection c = db.getCollectionById(mCollectionID);
+		  // if the IDs don't match - return
+		  if (c.getGlobalID() != mGlobalID)
+		    return;
+		} finally {
+		  db.close();
+		}
 
 		// preserve these values for the thread
 		long collectionID = mCollectionID, globalID = mGlobalID;
@@ -124,8 +126,12 @@ public class CollectionUpdateService extends Service implements Runnable
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		Collection collection = db.getCollectionById(localID);
-		db.close();
+		Collection collection;
+		try {
+		  collection = db.getCollectionById(localID);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_updated_successfully);
@@ -158,11 +164,13 @@ public class CollectionUpdateService extends Service implements Runnable
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		
-		db.updateCollectionType(collectionID, Collection.TYPE_PRIVATE_SHARED_COLLECTION);
-		Collection collection = db.getCollectionById(collectionID);
-
-		db.close();
+		Collection collection;
+		try {
+		  db.updateCollectionType(collectionID, Collection.TYPE_PRIVATE_SHARED_COLLECTION);
+		  collection = db.getCollectionById(collectionID);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_not_updated_successfully); // expanded

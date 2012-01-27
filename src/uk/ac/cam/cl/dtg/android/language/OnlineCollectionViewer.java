@@ -187,12 +187,14 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 
 						ApplicationDBAdapter db = new ApplicationDBAdapter(OnlineCollectionViewer.this);
 						db.open();
-
-						long localID = db.insertCollection(mCollection.getTitle(),
-								Collection.TYPE_CURRENTLY_DOWNLOADING, -1,
-								mCollection.getDescription(), mCollection.getGlobalID());
-
-						db.close();
+						long localID;
+						try {
+						  localID = db.insertCollection(mCollection.getTitle(),
+						      Collection.TYPE_CURRENTLY_DOWNLOADING, -1,
+						      mCollection.getDescription(), mCollection.getGlobalID());
+						} finally {
+						  db.close();
+						}
 
 						Intent intent = new Intent(OnlineCollectionViewer.this, CollectionDownloadService.class);
 

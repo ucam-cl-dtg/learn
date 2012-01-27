@@ -136,8 +136,12 @@ public class UploadActivity extends Activity implements Runnable
 		// check if there are any uploadable collections
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-		int count = db.getUploadableCount();
-		db.close();
+		int count;
+    try {
+      count = db.getUploadableCount();
+    } finally {
+      db.close();
+    }
 
 		if (count > 0)
 		{
@@ -256,10 +260,12 @@ public class UploadActivity extends Activity implements Runnable
 				// check whether the collection has been uploaded before
 				ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 				db.open();
-
-				Collection collection = db.getCollectionById(collectionID);
-
-				db.close();
+				Collection collection;
+				try {
+				  collection = db.getCollectionById(collectionID);
+				} finally {
+				  db.close();
+				}
 
 				int type = collection.getType();
 

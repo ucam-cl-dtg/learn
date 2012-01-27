@@ -130,23 +130,25 @@ public class CollectionBrowser extends ListActivity
 
 		db.open();
 
-		switch (mAction)
-		{
-		case INTENT_ACTION_PICK_FOR_LEARNING:
-			mCollectionList = db.getAllCollections();
-			break;
-		case INTENT_ACTION_PICK_FOR_EDITING:
-			mCollectionList = db.getEditableCollections();
-			break;
-		case INTENT_ACTION_PICK_FOR_UPLOADING:
-			mCollectionList = db.getUploadableCollections();
-			break;
-		default:
-			mCollectionList = db.getAllCollections();
-			break;
+		try {
+		  switch (mAction)
+		  {
+		    case INTENT_ACTION_PICK_FOR_LEARNING:
+		      mCollectionList = db.getAllCollections();
+		      break;
+		    case INTENT_ACTION_PICK_FOR_EDITING:
+		      mCollectionList = db.getEditableCollections();
+		      break;
+		    case INTENT_ACTION_PICK_FOR_UPLOADING:
+		      mCollectionList = db.getUploadableCollections();
+		      break;
+		    default:
+		      mCollectionList = db.getAllCollections();
+		      break;
+		  }
+		} finally {
+		  db.close();
 		}
-
-		db.close();
 
 		// check whether the list is empty
 		if (mCollectionList.size() == 0 && mAction == INTENT_ACTION_PICK_FOR_LEARNING)
@@ -412,8 +414,11 @@ public class CollectionBrowser extends ListActivity
 					// change the type in the Database
 					ApplicationDBAdapter dbUnshare = new ApplicationDBAdapter(CollectionBrowser.this);
 					dbUnshare.open();
-					dbUnshare.updateCollectionType(c.getRowID(), Collection.TYPE_PRIVATE_NON_SHARED);
-					dbUnshare.close();
+					try {
+					  dbUnshare.updateCollectionType(c.getRowID(), Collection.TYPE_PRIVATE_NON_SHARED);
+					} finally {
+					  dbUnshare.close();
+					}
 
 					// fire off the intent to the web server
 					Intent unshareIntent = new Intent(CollectionBrowser.this, CollectionUnshareService.class);
@@ -512,8 +517,11 @@ public class CollectionBrowser extends ListActivity
 			{
 				ApplicationDBAdapter db = new ApplicationDBAdapter(CollectionBrowser.this);
 				db.open();
-				db.deleteCollection(cID);
-				db.close();
+				try {
+				  db.deleteCollection(cID);
+				} finally {
+				  db.close();
+				}
 				myHandler.sendEmptyMessage(0);
 			}
 		});

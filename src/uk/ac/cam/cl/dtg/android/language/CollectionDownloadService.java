@@ -82,28 +82,28 @@ public class CollectionDownloadService extends Service implements Runnable
 				showNotification(localId);
 			} else
 			{
-				MyLog.e(LOG_TAG, "File could not be unzipped");
-				showFailedNotification(localId);
-
-				ApplicationDBAdapter db = new ApplicationDBAdapter(this);
-				db.open();
-				db.deleteCollection(localId);
-				db.close();
+			  dealWithCollectionDownloadFailure("File could not be unzipped",localId);
 			}
 		} else
 		{
-			MyLog.e(LOG_TAG, "File could not be downloaded");
-
-			showFailedNotification(localId);
-
-			ApplicationDBAdapter db = new ApplicationDBAdapter(this);
-			db.open();
-			db.deleteCollection(localId);
-			db.close();
-
+			dealWithCollectionDownloadFailure("File could not be downloaded", localId);
 		}
 
 		updateOngoingNotificationOnFinish();
+	}
+
+	private void dealWithCollectionDownloadFailure(String message, long localId){
+	  MyLog.e(LOG_TAG, message);
+
+    showFailedNotification(localId);
+
+    ApplicationDBAdapter db = new ApplicationDBAdapter(this);
+    db.open();
+    try {
+      db.deleteCollection(localId);
+    } finally {
+      db.close();
+    }
 	}
 	
 	/**
@@ -123,11 +123,13 @@ public class CollectionDownloadService extends Service implements Runnable
 		MyLog.d(LOG_TAG, "Changing collection type in the DB!");
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-
-		Collection collection = db.getCollectionById(localID);
-		db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
-
-		db.close();
+		Collection collection;
+		try {
+		  collection = db.getCollectionById(localID);
+		  db.updateCollectionType(localID, Collection.TYPE_DOWNLOADED_UNLOCKED);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_downloaded_successfully);
@@ -162,10 +164,12 @@ public class CollectionDownloadService extends Service implements Runnable
 
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
-
-		Collection collection = db.getCollectionById(collectionID);
-
-		db.close();
+		Collection collection;
+		try {
+		  collection = db.getCollectionById(collectionID);
+		} finally {
+		  db.close();
+		}
 
 		CharSequence contentText = getString(R.string.collection) + " \"" + collection.getTitle()
 				+ "\" " + getString(R.string.was_not_updated_successfully); // expanded

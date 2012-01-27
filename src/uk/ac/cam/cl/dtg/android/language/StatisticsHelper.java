@@ -38,9 +38,12 @@ public class StatisticsHelper
 	public void loadStatistics(String orderBy)
 	{
 		ApplicationDBAdapter db = new ApplicationDBAdapter(mContext);
-		db.open();	
-		mStatistics = db.getAllStatisticsForCollection(mCollectionID, orderBy);
-		db.close();
+		db.open();
+		try {
+		  mStatistics = db.getAllStatisticsForCollection(mCollectionID, orderBy);
+		} finally {
+		  db.close();
+		}
 	}
 	
 	/**
@@ -67,8 +70,11 @@ public class StatisticsHelper
 		
 		ApplicationDBAdapter db = new ApplicationDBAdapter(mContext);
 		db.open();
-		db.insertStatisticsItem(mCollectionID, cardID, exposureTime, correct, tested);
-		db.close();
+		try {
+		  db.insertStatisticsItem(mCollectionID, cardID, exposureTime, correct, tested);
+		} finally {
+		  db.close();
+		}
 		
 		// add this into statistics so that we don't have to reload everything
 		mStatistics.add(new StatisticsItem(-1, mCollectionID, cardID, System.currentTimeMillis(), exposureTime, correct, tested));
