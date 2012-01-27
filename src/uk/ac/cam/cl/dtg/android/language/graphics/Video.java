@@ -10,6 +10,7 @@ import uk.ac.cam.cl.dtg.android.language.MyLog;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.Resource;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
+import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
 import android.app.Activity;
 import android.content.Intent;
@@ -77,32 +78,35 @@ public class Video extends Component
 			@Override
 			public void run()
 			{
-				CardDBAdapter db = new CardDBAdapter();
-				db.open(mCollectionID);
-				Resource res = db.getResource(mResourceID);								
-				db.close();
-				
-				if (res != null)
-				{
-					String suffix = res.getSuffix();
-					
-					mVideoView.setVideoPath(ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/" + mResourceID + "." + suffix);
-					mVideoView.requestFocus();					
-	
-					// instantiate the listener and set it as on touch and
-					// completion listener
-					MediaListener mListener = new MediaListener();
-					mVideoView.setOnTouchListener(mListener);
-	
-					MyLog.d(LOG_TAG, String.valueOf(mDelay
-							+ CardRenderer.DURATION_TOTAL_LAG));
-	
-					mVideoView.start();
-					mainHolder.removeAllViews();
-					mainHolder.addView(mVideoView, new ViewGroup.LayoutParams(
-							ViewGroup.LayoutParams.WRAP_CONTENT,
-							ViewGroup.LayoutParams.WRAP_CONTENT));
-				}
+			  try {
+			    CardDBAdapter db = new CardDBAdapter();
+			    db.open(mCollectionID);
+			    String suffix;
+			    try {
+			      suffix = db.getResource(mResourceID).getSuffix();
+			    } finally {
+			      db.close();
+			    }
+
+			    mVideoView.setVideoPath(ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/" + mResourceID + "." + suffix);
+			    mVideoView.requestFocus();					
+
+			    // instantiate the listener and set it as on touch and
+			    // completion listener
+			    MediaListener mListener = new MediaListener();
+			    mVideoView.setOnTouchListener(mListener);
+
+			    MyLog.d(LOG_TAG, String.valueOf(mDelay
+			        + CardRenderer.DURATION_TOTAL_LAG));
+
+			    mVideoView.start();
+			    mainHolder.removeAllViews();
+			    mainHolder.addView(mVideoView, new ViewGroup.LayoutParams(
+			        ViewGroup.LayoutParams.WRAP_CONTENT,
+			        ViewGroup.LayoutParams.WRAP_CONTENT));
+			  } catch (ResourceNotFoundException e){
+			    MyLog.w(LOG_TAG, e.getMessage());
+			  }
 
 			}
 		};

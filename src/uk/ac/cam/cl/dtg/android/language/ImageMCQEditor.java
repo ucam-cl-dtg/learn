@@ -224,15 +224,20 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 	 * Method to make image for one of the options.
 	 * 
 	 * @param id ID of the option to create image for.
+	 * @throws ResourceNotFoundException 
 	 */
-	private void makeImage(int id)
+	private void makeImage(int id) throws ResourceNotFoundException
 	{
 		ImageView iView;
 
 		CardDBAdapter db = new CardDBAdapter();
 		db.open(mCollectionID);
-		String suffix = db.getResource(mResourceIDs[id]).getSuffix();
-		db.close();
+		String suffix;
+		try {
+		  suffix = db.getResource(mResourceIDs[id]).getSuffix();
+		} finally {
+		  db.close();
+		}
 
 		String path = "file://" + ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/"
 				+ mResourceIDs[id] + "." + suffix;
@@ -263,7 +268,13 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 			if (mResourceIDs[i] >= 0)
 			{
 				// instantiate the image view and add it to the holder
-				makeImage(i);
+				try {
+          makeImage(i);
+        } catch (ResourceNotFoundException e) {
+          MyLog.e(LOG_TAG, e.getMessage());
+          // fall back to just making a button
+          makeButton(i);
+        }
 			} else
 			{
 				// just make a button
@@ -406,7 +417,11 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 				fsHelper.deleteUri(source);
 
 			mResourceIDs[id] = resourceID;
-			makeImage(id);
+			try {
+        makeImage(id);
+      } catch (ResourceNotFoundException e) {
+        MyLog.e(LOG_TAG, "Could not make image for id ("+id+") :" + e.getMessage());
+      }
 		}
 	}
 

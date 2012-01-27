@@ -9,6 +9,7 @@ import uk.ac.cam.cl.dtg.android.language.ApplicationInitializer;
 import uk.ac.cam.cl.dtg.android.language.CardDBAdapter;
 import uk.ac.cam.cl.dtg.android.language.MyLog;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
+import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
 import android.app.Activity;
 import android.content.Context;
@@ -48,17 +49,25 @@ public class Image extends Component
 
 	public void render()
 	{
-		CardDBAdapter db = new CardDBAdapter();
-		db.open(mCollectionID);
-		String suffix = db.getResource(mResourceID).getSuffix();
-		db.close();
+	  try {
+	    CardDBAdapter db = new CardDBAdapter();
+	    db.open(mCollectionID);
+	    String suffix;
+	    try {
+	      suffix = db.getResource(mResourceID).getSuffix();
+	    } finally {
+	      db.close();
+	    }
 
-		mView = produceImageView(mContext, Uri.parse("file://"
-				+ ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/" + mResourceID
-				+ "." + suffix));
+	    mView = produceImageView(mContext, Uri.parse("file://"
+	        + ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/" + mResourceID
+	        + "." + suffix));
 
-		if (mView == null)
-			MyLog.e(LOG_TAG, "Produced ImageView is null");
+	    if (mView == null)
+	      MyLog.e(LOG_TAG, "Produced ImageView is null");
+	  } catch (ResourceNotFoundException e){
+	    MyLog.e(LOG_TAG, e.getMessage());
+	  }
 	}
 
 	public static ImageView produceImageView(Context context, Uri source)

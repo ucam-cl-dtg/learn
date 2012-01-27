@@ -381,23 +381,29 @@ public class ApplicationInitializer
 
 					long[] updateables = bundle.getLongArray(MESSAGE_BUNDLE_GLOBAL_IDS_FOR_UPDATES);
 
-					ApplicationDBAdapter db = new ApplicationDBAdapter(mContext);
-					db.open();
+            ApplicationDBAdapter db = new ApplicationDBAdapter(mContext);
+            db.open();
+            long[] localIDs;
+            try {
 
-					long[] localIDs = new long[updateables.length];
+              localIDs = new long[updateables.length];
 
-					// get all the local IDs and lock all the collections that
-					// are about to be updated
-					for (int i = 0; i < updateables.length; i++)
-					{
+              // get all the local IDs and lock all the collections that
+              // are about to be updated
+              for (int i = 0; i < updateables.length; i++) {
+                try {
+                  Collection c = db.getCollectionByGlobalID(updateables[i]);
+                  db.updateCollectionType(c.getRowID(), Collection.TYPE_CURRENTLY_DOWNLOADING);
 
-						Collection c = db.getCollectionByGlobalID(updateables[i]);
-						db.updateCollectionType(c.getRowID(), Collection.TYPE_CURRENTLY_DOWNLOADING);
+                  localIDs[i] = c.getRowID();
+                } catch (IOException e){
+                  MyLog.e(LOG_TAG, e.getMessage());
+                }
+              }
 
-						localIDs[i] = c.getRowID();
-					}
-
-					db.close();
+            } finally {
+              db.close();
+            }
 
 					Intent intent = new Intent(mContext, DownloadUpdatesService.class);
 

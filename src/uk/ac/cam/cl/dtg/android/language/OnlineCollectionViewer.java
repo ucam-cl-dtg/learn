@@ -1,5 +1,6 @@
 package uk.ac.cam.cl.dtg.android.language;
 
+import java.io.IOException;
 import java.util.Date;
 
 import android.app.Activity;
@@ -127,12 +128,14 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 
 			ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 			db.open();
-			Collection c = db.getCollectionByGlobalID(mCollection.getGlobalID());
-			if (c == null)
-				mType = -1;
-			else
-				mType = c.getType();
-			db.close();
+			try {
+			  Collection c = db.getCollectionByGlobalID(mCollection.getGlobalID());
+			  mType = c.getType();
+			} catch (IOException e) {
+			  mType = -1;
+			} finally {
+        db.close();
+      }
 
 			refreshDownloadStatus(mType);
 
@@ -222,19 +225,26 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 			// get local collection
 			ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 			db.open();
+			
+			Collection c = null;
+			try {
+			  try {
+			    c = db.getCollectionByGlobalID(mCollection.getGlobalID());
+			  } finally {
+			    db.close();
+			  }
 
-			Collection c = db.getCollectionByGlobalID(mCollection.getGlobalID());
-
-			db.close();
-
-			// set the rating bar to show your rating
-			mRatingBar.setRating((float) c.getRating());
+			  // set the rating bar to show your rating
+			  mRatingBar.setRating((float) c.getRating());
+			} catch (IOException e){
+			  MyLog.e(LOG_TAG, e.getMessage());
+			}
 
 			TextView ratingView = (TextView) findViewById(R.id.rating_count);
 
 			// if the collection has not been rated - show the encouragement to
 			// do that!
-			if (c.getRating() == -1)
+			if (c == null || c.getRating() == -1)
 			{
 				ratingView.setText(R.string.rate_it);
 			} else
@@ -323,25 +333,27 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 				// update local DB and send the rating update to the web server
 				ApplicationDBAdapter db = new ApplicationDBAdapter(OnlineCollectionViewer.this);
 				db.open();
+				try {
+				  Collection c = db.getCollectionByGlobalID(mCollection.getGlobalID());
 
-				Collection c = db.getCollectionByGlobalID(mCollection.getGlobalID());
+				  db.updateRating(c.getRowID(), (int) rating);
+				  db.close();// Close it early if we can
 
-				if (c != null)
-				{
+				  if (c.getType() == Collection.TYPE_DOWNLOADED_UNLOCKED)
+				  {
+				    Intent intent = new Intent(OnlineCollectionViewer.this, CollectionRatingService.class);
 
-					db.updateRating(c.getRowID(), (int) rating);
-					db.close();
+				    intent.putExtra(CollectionRatingService.INTENT_GLOBAL_ID,
+				        mCollection.getGlobalID());
+				    intent.putExtra(CollectionRatingService.INTENT_RATING, (int) rating);
 
-					if (c.getType() == Collection.TYPE_DOWNLOADED_UNLOCKED)
-					{
-						Intent intent = new Intent(OnlineCollectionViewer.this, CollectionRatingService.class);
+				    OnlineCollectionViewer.this.startService(intent);
+				  }
 
-						intent.putExtra(CollectionRatingService.INTENT_GLOBAL_ID,
-								mCollection.getGlobalID());
-						intent.putExtra(CollectionRatingService.INTENT_RATING, (int) rating);
-
-						OnlineCollectionViewer.this.startService(intent);
-					}
+				} catch (IOException e){
+				  MyLog.e(LOG_TAG, e.getMessage());
+				} finally {
+				  db.close();
 				}
 
 				// redraw the rating bar
@@ -376,16 +388,17 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 
 		while (true)
 		{
+		  int newType;
 			db.open();
-			localCollection = db.getCollectionByGlobalID(mCollection.getGlobalID());
-			db.close();
-
-			int newType;
-
-			if (localCollection != null)
-				newType = localCollection.getType();
-			else
-				newType = -1;
+      try {
+        localCollection = db.getCollectionByGlobalID(mCollection.getGlobalID());
+        newType = localCollection.getType();
+      } catch (IOException e) {
+        MyLog.e(LOG_TAG, e.getMessage());
+        newType = -1;
+      } finally {
+        db.close();
+      }
 
 			// send the message to the handler if the type has changed
 			if (newType != oldType)

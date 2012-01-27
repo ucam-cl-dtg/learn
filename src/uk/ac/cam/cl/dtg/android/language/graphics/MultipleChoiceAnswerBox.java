@@ -13,6 +13,7 @@ import uk.ac.cam.cl.dtg.android.language.MultipleChoiceAnswer;
 import uk.ac.cam.cl.dtg.android.language.MyLog;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
+import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
 import uk.ac.cam.cl.dtg.android.language.TextMCQEditor;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
 import android.app.Activity;
@@ -108,18 +109,25 @@ public class MultipleChoiceAnswerBox extends Component
 
 			if (mAnswer.isImageType())
 			{
-				long resourceID = Long.parseLong(mAnswer.getOptions().get(mAnswer.getCorrect()));
+			  try {
+			    long resourceID = Long.parseLong(mAnswer.getOptions().get(mAnswer.getCorrect()));
 
-				CardDBAdapter db = new CardDBAdapter();
-				db.open(mCollectionID);
-				String suffix = db.getResource(resourceID).getSuffix();
-				db.close();
+			    CardDBAdapter db = new CardDBAdapter();
+			    db.open(mCollectionID);
+			    String suffix;
+			    try {
+			      suffix = db.getResource(resourceID).getSuffix();
+			    } finally {
+			      db.close();
+			    }
 
-				ImageView iView = Image.produceImageView(mContext, Uri.parse("file://"
-						+ ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/"
-						+ resourceID + "." + suffix), false);
-				mainHolder.addView(iView);
-
+			    ImageView iView = Image.produceImageView(mContext, Uri.parse("file://"
+			        + ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/"
+			        + resourceID + "." + suffix), false);
+			    mainHolder.addView(iView);
+			  } catch (ResourceNotFoundException e){
+			    MyLog.e(LOG_TAG, e.getMessage());
+			  }
 			} else
 			{
 				TextView correctAnswerView = new TextView(mContext);
@@ -245,26 +253,35 @@ public class MultipleChoiceAnswerBox extends Component
 
 				long resourceID = Long.parseLong(mAnswer.getOptions().get(position));
 
-				CardDBAdapter db = new CardDBAdapter();
-				db.open(mCollectionID);
-				String suffix = db.getResource(resourceID).getSuffix();
-				db.close();
+				try {
+				  CardDBAdapter db = new CardDBAdapter();
+				  db.open(mCollectionID);
+				  String suffix;
+				  try {
+				    suffix = db.getResource(resourceID).getSuffix();
+				  } finally {
+				    db.close();
+				  }
 
-				bmp = Image.produceBitmap(mContext, Uri.parse("file://"
-						+ ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/"
-						+ mAnswer.getOptions().get(position) + "." + suffix), true);
+				  bmp = Image.produceBitmap(mContext, Uri.parse("file://"
+				      + ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/"
+				      + mAnswer.getOptions().get(position) + "." + suffix), true);
 
-				ibutton = new ImageButton(mContext);
-				ibutton.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 100));
-				ibutton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-				ibutton.setImageBitmap(bmp);
+				  ibutton = new ImageButton(mContext);
+				  ibutton.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 100));
+				  ibutton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+				  ibutton.setImageBitmap(bmp);
 
-				if (mAnswer.getCorrect() == option)
-					ibutton.setOnClickListener(new CorrectListener());
-				else
-					ibutton.setOnClickListener(new WrongListener());
+				  if (mAnswer.getCorrect() == option)
+				    ibutton.setOnClickListener(new CorrectListener());
+				  else
+				    ibutton.setOnClickListener(new WrongListener());
 
-				return ibutton;
+				  return ibutton;
+				} catch (ResourceNotFoundException e){
+				  MyLog.e(LOG_TAG, e.getMessage());
+				  return null;
+				}
 			} else
 				return null;
 		}

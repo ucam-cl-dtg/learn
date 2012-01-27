@@ -1,6 +1,7 @@
 package uk.ac.cam.cl.dtg.android.language;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -336,15 +337,15 @@ public class ApplicationDBAdapter
 	 *            global collection ID that was issued by the online server
 	 * @return {@link Collection} object that has the given global ID, the first
 	 *         one if there is more than one, or null in case there aren't any
+	 * @throws IOException if something goes wrong
 	 */
-	public Collection getCollectionByGlobalID(Long globalID)
+	public Collection getCollectionByGlobalID(Long globalID) throws IOException
 	{
 	  try
     {
 		Cursor cursor = mDb.query(true, DATABASE_TABLE_COLLECTIONS, COLLECTIONS_COLUMNS, KEY_COLLECTIONS_GLOBAL_ID + "=" + globalID, null,
 				null, null, null, null);
-		try
-		{
+
 			cursor.moveToFirst();
 
 			Collection c = collectionFromCursor(cursor);
@@ -355,7 +356,7 @@ public class ApplicationDBAdapter
 
 		} catch (Exception e)
 		{
-			return null;
+			throw new IOException(e.getMessage());
 		}
 	}
 

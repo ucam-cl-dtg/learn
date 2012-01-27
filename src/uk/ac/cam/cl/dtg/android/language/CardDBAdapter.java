@@ -317,30 +317,32 @@ public class CardDBAdapter
 	 *            resource ID
 	 * @return resource with the specific ID, null if resource could not be
 	 *         found
+	 * @throws ResourceNotFoundException 
 	 */
-	public Resource getResource(long resourceID)
-	{
-		try
-		{
-			Cursor cursor = mDb.query(true, DATABASE_TABLE_RESOURCES, new String[]
-			{ KEY_RESOURCES_ROWID, KEY_RESOURCES_SUFFIX, KEY_RESOURCES_REFERENCE_COUNT },
-					KEY_RESOURCES_ROWID + "=" + resourceID, null, null, null, null, null);
+	public Resource getResource(long resourceID) throws ResourceNotFoundException
+	{//TODO(drt24) this can throw runtime exceptions and fail.
+	  try {
+	  Cursor cursor = mDb.query(true, DATABASE_TABLE_RESOURCES, new String[]
+	      { KEY_RESOURCES_ROWID, KEY_RESOURCES_SUFFIX, KEY_RESOURCES_REFERENCE_COUNT },
+	      KEY_RESOURCES_ROWID + "=" + resourceID, null, null, null, null, null);
 
-			Resource resource = null;
+	  Resource resource = null;
 
-			if (!cursor.isAfterLast())
-			{
-				cursor.moveToFirst();
-				resource = new Resource(resourceID, cursor.getString(cursor.getColumnIndex(CardDBAdapter.KEY_RESOURCES_SUFFIX)), cursor.getInt(cursor.getColumnIndex(CardDBAdapter.KEY_RESOURCES_REFERENCE_COUNT)));
-			}
+	  if (!cursor.isAfterLast())
+	  {
+	    cursor.moveToFirst();
+	    resource = new Resource(resourceID, cursor.getString(cursor.getColumnIndex(CardDBAdapter.KEY_RESOURCES_SUFFIX)), cursor.getInt(cursor.getColumnIndex(CardDBAdapter.KEY_RESOURCES_REFERENCE_COUNT)));
+	  }
 
-			cursor.close();
+	  cursor.close();
+	  if (resource == null){
+	    throw new ResourceNotFoundException("Could not get resource with id: " + resourceID);
+	  }
 
-			return resource;
-		} catch (Exception e)
-		{
-			return null;
-		}
+	  return resource;
+	  } catch (Exception e){
+	    throw new ResourceNotFoundException(e);
+	  }
 	}
 
 	/**

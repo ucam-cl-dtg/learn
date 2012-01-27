@@ -60,6 +60,7 @@ public class ResourceHelper
 
 		String destinationFolder = ApplicationInitializer.COLLECTIONS_FOLDER + collectionID + "/";
 
+		try {
 		if (path.equals(destinationFolder))
 		{
 			MyLog.d(LOG_TAG, "The resource is already at the same folder - no need to copy it again");
@@ -69,92 +70,98 @@ public class ResourceHelper
 
 			CardDBAdapter db = new CardDBAdapter();
 			db.open(collectionID);
+			try {
+			  Resource res = db.getResource(resourceID);
 
-			Resource res = db.getResource(resourceID);
+			  int referenceCount = res.getReferenceCount();
 
-			int referenceCount = res.getReferenceCount();
+			  referenceCount++;
 
-			referenceCount++;
+			  MyLog.d(LOG_TAG, "Updating resource count to " + referenceCount
+			      + " for the resource with ID " + resourceID);
 
-			MyLog.d(LOG_TAG, "Updating resource count to " + referenceCount
-					+ " for the resource with ID " + resourceID);
-
-			db.updateResourceReferenceCount(resourceID, referenceCount);
-
-			db.close();
+			  db.updateResourceReferenceCount(resourceID, referenceCount);
+			} finally {
+			  db.close();
+			}
 
 			return resourceID;
-		} else
-		{
-			try
-			{
-
-				InputStream inputSource = null;
-				if (source.getScheme().equals("file"))
-				{
-					inputSource = new FileInputStream(source.getPath());
-				} else
-				{
-					inputSource = mContext.getContentResolver().openInputStream(source);
-				}
-
-				String suffix = getSuffix(mContext, source);
-
-				MyLog.d(LOG_TAG, "Suffix returned was ." + suffix);
-
-				CardDBAdapter db = new CardDBAdapter();
-				db.open(collectionID);
-
-				long id = db.insertResource(suffix);
-
-				db.close();
-
-				// construct a file for the given collection ID and resource ID
-
-				final String destination = ApplicationInitializer.COLLECTIONS_FOLDER + collectionID
-						+ "/" + id + "." + suffix;
-
-				FileOutputStream outputStream = new FileOutputStream(destination);
-
-				byte[] buf = new byte[1024];
-
-				int numRead = 0;
-				while ((numRead = inputSource.read(buf)) >= 0)
-				{
-					outputStream.write(buf, 0, numRead);
-				}
-				outputStream.close();
-
-				if (insertToContentResolver)
-				{
-
-					mConnection = new MediaScannerConnection(mContext, new MediaScannerConnection.MediaScannerConnectionClient()
-					{
-						public void onMediaScannerConnected()
-						{
-							mConnection.scanFile(destination, null /* mimeType */);
-						}
-
-						public void onScanCompleted(String path, Uri uri)
-						{
-							MyLog.d(LOG_TAG, "Media scanner completed scan, path is - " + path
-									+ ", Uri is - " + uri.toString());
-
-							mConnection.disconnect();
-						}
-					});
-
-					mConnection.connect();
-				}
-
-				return id;
-			} catch (Exception e)
-			{
-				MyLog.e(LOG_TAG, "Exception caught while copying file - " + e.getMessage());
-				e.printStackTrace();
-				return -1;
-			}
+		} 
+		} catch (ResourceNotFoundException e){
+		  MyLog.w(LOG_TAG, e.getMessage());
 		}
+		// Else or if exception
+		try
+		{
+
+		  InputStream inputSource = null;
+		  if (source.getScheme().equals("file"))
+		  {
+		    inputSource = new FileInputStream(source.getPath());
+		  } else
+		  {
+		    inputSource = mContext.getContentResolver().openInputStream(source);
+		  }
+
+		  String suffix = getSuffix(mContext, source);
+
+		  MyLog.d(LOG_TAG, "Suffix returned was ." + suffix);
+
+		  CardDBAdapter db = new CardDBAdapter();
+		  db.open(collectionID);
+		  long id;
+		  try {
+		    id = db.insertResource(suffix);
+		  } finally {
+		    db.close();
+		  }
+
+		  // construct a file for the given collection ID and resource ID
+
+		  final String destination = ApplicationInitializer.COLLECTIONS_FOLDER + collectionID
+		      + "/" + id + "." + suffix;
+
+		  FileOutputStream outputStream = new FileOutputStream(destination);
+
+		  byte[] buf = new byte[1024];
+
+		  int numRead = 0;
+		  while ((numRead = inputSource.read(buf)) >= 0)
+		  {
+		    outputStream.write(buf, 0, numRead);
+		  }
+		  outputStream.close();
+
+		  if (insertToContentResolver)
+		  {
+
+		    mConnection = new MediaScannerConnection(mContext, new MediaScannerConnection.MediaScannerConnectionClient()
+		    {
+		      public void onMediaScannerConnected()
+		      {
+		        mConnection.scanFile(destination, null /* mimeType */);
+		      }
+
+		      public void onScanCompleted(String path, Uri uri)
+		      {
+		        MyLog.d(LOG_TAG, "Media scanner completed scan, path is - " + path
+		            + ", Uri is - " + uri.toString());
+
+		        mConnection.disconnect();
+		      }
+		    });
+
+		    mConnection.connect();
+		  }
+
+		  return id;
+		} catch (Exception e)
+		{
+		  MyLog.e(LOG_TAG, "Exception caught while copying file - " + e.getMessage());
+		  e.printStackTrace();
+		  return -1;
+		}
+
 	}
 
 	/**
@@ -188,18 +195,26 @@ public class ResourceHelper
 	 */
 	public boolean deleteResourceFile(long collectionID, long resourceID)
 	{
-		CardDBAdapter db = new CardDBAdapter();
-		db.open(collectionID);
+	  try {
+	    CardDBAdapter db = new CardDBAdapter();
+	    db.open(collectionID);
+	    String suffix;
+	    try {
+	      Resource res = db.getResource(resourceID);
 
-		Resource res = db.getResource(resourceID);
+	      suffix = res.getSuffix();
+	    } finally {
+	      db.close();
+	    }
 
-		String suffix = res.getSuffix();
-		db.close();
+	    File file = new File(ApplicationInitializer.COLLECTIONS_FOLDER + collectionID + "/"
+	        + resourceID + "." + suffix);
 
-		File file = new File(ApplicationInitializer.COLLECTIONS_FOLDER + collectionID + "/"
-				+ resourceID + "." + suffix);
-
-		return file.delete();
+	    return file.delete();
+	  } catch (ResourceNotFoundException e){
+	    MyLog.w(LOG_TAG, e.getMessage());
+	    return false;
+	  }
 	}
 
 	/**
@@ -339,26 +354,29 @@ public class ResourceHelper
 	{
 		CardDBAdapter db = new CardDBAdapter();
 		db.open(collectionID);
+		try {
+		  Resource res = db.getResource(resourceID);
 
-		Resource res = db.getResource(resourceID);
+		  int referenceCount = res.getReferenceCount();
 
-		int referenceCount = res.getReferenceCount();
+		  if (referenceCount > 1)
+		  {
+		    MyLog.d(LOG_TAG, "Reducing reference count for resource " + resourceID + " to "
+		        + (referenceCount - 1));
+		    db.updateResourceReferenceCount(resourceID, referenceCount - 1);
+		  } else
+		  {
+		    MyLog.d(LOG_TAG, "Deleting the resource " + resourceID);
+		    this.deleteResourceFile(collectionID, resourceID);
 
-		if (referenceCount > 1)
-		{
-			MyLog.d(LOG_TAG, "Reducing reference count for resource " + resourceID + " to "
-					+ (referenceCount - 1));
-			db.updateResourceReferenceCount(resourceID, referenceCount - 1);
-		} else
-		{
-			MyLog.d(LOG_TAG, "Deleting the resource " + resourceID);
-			this.deleteResourceFile(collectionID, resourceID);
+		    db.deleteResource(resourceID);
 
-			db.deleteResource(resourceID);
-
+		  }
+		} catch (ResourceNotFoundException e) {
+		  MyLog.w(LOG_TAG, e.getMessage());
+		} finally {
+		  db.close();
 		}
-
-		db.close();
 
 	}
 
