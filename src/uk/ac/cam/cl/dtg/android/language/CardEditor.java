@@ -36,8 +36,8 @@ import android.provider.MediaStore;
 import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -1018,7 +1018,8 @@ public class CardEditor extends Activity implements AnswerListener
 		
 		alertDialogBuilder.setItems(types,
 				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int typeID)
+					@Override
+          public void onClick(DialogInterface dialog, int typeID)
 					{
 						mDialogShown = false;
 						mDialogCode = 0;

@@ -67,7 +67,8 @@ public class Editable extends Component
 		mContext = c;
 	}
 
-	public void render()
+	@Override
+  public void render()
 	{
 		LinearLayout mLayout = new LinearLayout(mContext);
 

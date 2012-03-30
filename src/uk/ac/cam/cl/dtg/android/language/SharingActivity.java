@@ -38,7 +38,8 @@ public class SharingActivity extends ListActivity
 	private final static int TITLE_TEXT_SIZE = 20;
 	private final static int DESC_TEXT_SIZE = 17;
 
-	public void onCreate(Bundle savedInstanceState)
+	@Override
+  public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		

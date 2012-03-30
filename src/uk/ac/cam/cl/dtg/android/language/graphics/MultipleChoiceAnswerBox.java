@@ -67,7 +67,8 @@ public class MultipleChoiceAnswerBox extends Component
 		mTesting = testing;
 	}
 
-	public void render()
+	@Override
+  public void render()
 	{
 		MyLog.d(LOG_TAG, "Starting rendering a multiple choice answer");
 
@@ -204,23 +205,27 @@ public class MultipleChoiceAnswerBox extends Component
 			}
 		}
 
-		public int getCount()
+		@Override
+    public int getCount()
 		{
 			return mAnswer.getOptions().size();
 		}
 
-		public Object getItem(int position)
+		@Override
+    public Object getItem(int position)
 		{
 			return null;
 		}
 
-		public long getItemId(int position)
+		@Override
+    public long getItemId(int position)
 		{
 			return 0;
 		}
 
 		// create a new ImageView for each item referenced by the Adapter
-		public View getView(int position, View convertView, ViewGroup parent)
+		@Override
+    public View getView(int position, View convertView, ViewGroup parent)
 		{
 			int option = mOptionsOrder.get(position);
 

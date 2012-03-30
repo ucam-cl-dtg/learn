@@ -569,7 +569,6 @@ public class ServerHelper
 	 *            - flag telling whether to delete the file if unzipping fails
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public static boolean unzipFile(long localID, String tempFileName, boolean deleteIfFailed)
 	{
 		try
@@ -582,7 +581,7 @@ public class ServerHelper
 
 			ZipFile zipFile = new ZipFile(archiveFile);
 
-			Enumeration entries = zipFile.entries();
+			Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
 			ZipEntry entry;
 

@@ -1,6 +1,5 @@
 package uk.ac.cam.cl.dtg.android.language;
 
-import uk.ac.cam.cl.dtg.android.language.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

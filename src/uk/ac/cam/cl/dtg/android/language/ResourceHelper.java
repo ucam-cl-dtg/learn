@@ -137,12 +137,14 @@ public class ResourceHelper
 
 		    mConnection = new MediaScannerConnection(mContext, new MediaScannerConnection.MediaScannerConnectionClient()
 		    {
-		      public void onMediaScannerConnected()
+		      @Override
+          public void onMediaScannerConnected()
 		      {
 		        mConnection.scanFile(destination, null /* mimeType */);
 		      }
 
-		      public void onScanCompleted(String path, Uri uri)
+		      @Override
+          public void onScanCompleted(String path, Uri uri)
 		      {
 		        MyLog.d(LOG_TAG, "Media scanner completed scan, path is - " + path
 		            + ", Uri is - " + uri.toString());

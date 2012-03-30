@@ -29,13 +29,15 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -46,8 +48,6 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * 
@@ -115,7 +115,8 @@ public class DownloadActivity extends TabActivity implements
 
 		TabHost.TabSpec specPopularity = tabs.newTabSpec(TAB_BY_POPULARITY);
 		specPopularity.setContent(new TabHost.TabContentFactory() {
-			public View createTabContent(String tag) {
+			@Override
+      public View createTabContent(String tag) {
 				MyLog.d(LOG_TAG, "Adding create tab content for popularity");
 
 				mCollectionsPopularity = new ArrayList<OnlineCollection>();
@@ -164,7 +165,8 @@ public class DownloadActivity extends TabActivity implements
 
 		TabHost.TabSpec specDate = tabs.newTabSpec(TAB_BY_DATE);
 		specDate.setContent(new TabHost.TabContentFactory() {
-			public View createTabContent(String tag) {
+			@Override
+      public View createTabContent(String tag) {
 				mCollectionsDate = new ArrayList<OnlineCollection>();
 
 				mAdapterDate = new CollectionFeedAdapter(mCollectionsDate,

@@ -9,9 +9,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Environment;
@@ -310,7 +310,8 @@ public class ApplicationInitializer
 				noCollectionsFolderAlert.setPositiveButton(R.string.ok,
 						new DialogInterface.OnClickListener()
 						{
-							public void onClick(DialogInterface dialog, int whichButton)
+							@Override
+              public void onClick(DialogInterface dialog, int whichButton)
 							{
 								mContext.finish();
 							}

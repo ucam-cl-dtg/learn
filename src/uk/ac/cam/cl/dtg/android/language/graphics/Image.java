@@ -36,7 +36,6 @@ public class Image extends Component
 	private Activity mContext;
 	private long mCollectionID;
 	private long mResourceID;
-	private int mWidth, mHeight;
 
 	public Image(Activity context, long collectionID, long resourceID, int width, int height)
 	{
@@ -47,7 +46,8 @@ public class Image extends Component
 		mHeight = height;
 	}
 
-	public void render()
+	@Override
+  public void render()
 	{
 	  try {
 	    CardDBAdapter db = new CardDBAdapter();

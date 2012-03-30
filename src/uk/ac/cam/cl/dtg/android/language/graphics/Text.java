@@ -43,7 +43,8 @@ public class Text extends Component
 		mTTSable = ttsable;
 	}
 
-	public void render()
+	@Override
+  public void render()
 	{
 		// just use the default font size
 		int fontSize = FONT_SIZE;
@@ -61,31 +62,28 @@ public class Text extends Component
 
 		tv.setTextSize(fontSize);
 
-		if (tv != null)
+		// for very short pieces of text - no need to use scroll view...
+		if (length < 50)
 		{
-			// for very short pieces of text - no need to use scroll view...
-			if (length < 50)
-			{
-				LinearLayout mainHolder = new LinearLayout(mContext);
-				mainHolder.setGravity(Gravity.CENTER);
-				mainHolder.addView(
-						tv,
-						new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		  LinearLayout mainHolder = new LinearLayout(mContext);
+		  mainHolder.setGravity(Gravity.CENTER);
+		  mainHolder.addView(
+		      tv,
+		      new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-				mView = mainHolder;
-			} else
-			{
-				ScrollView sv = new ScrollView(mContext);
-
-				sv.addView(
-						tv,
-						new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-
-				mView = sv;
-
-			}
+		  mView = mainHolder;
 		} else
-			MyLog.e("Text", "Created text is null");
+		{
+		  ScrollView sv = new ScrollView(mContext);
+
+		  sv.addView(
+		      tv,
+		      new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+		  mView = sv;
+
+		}
+
 
 		if (mTTSable)
 		{

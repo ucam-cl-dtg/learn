@@ -8,7 +8,6 @@ import uk.ac.cam.cl.dtg.android.language.CardRenderer;
 import uk.ac.cam.cl.dtg.android.language.DelayEditor;
 import uk.ac.cam.cl.dtg.android.language.MyLog;
 import uk.ac.cam.cl.dtg.android.language.R;
-import uk.ac.cam.cl.dtg.android.language.Resource;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
 import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
@@ -53,7 +52,8 @@ public class Video extends Component
 	}
 
 	// prepares the video to be shown
-	public void render()
+	@Override
+  public void render()
 	{
 		MyLog.d(LOG_TAG, "render() called");
 		

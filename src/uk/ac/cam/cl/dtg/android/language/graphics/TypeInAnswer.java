@@ -52,7 +52,8 @@ public class TypeInAnswer extends Component
 		mTesting = testing;
 	}
 
-	public void render()
+	@Override
+  public void render()
 	{
 		LinearLayout layout = new LinearLayout(mContext);
 

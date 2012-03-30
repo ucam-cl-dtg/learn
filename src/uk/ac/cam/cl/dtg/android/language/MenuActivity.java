@@ -105,6 +105,7 @@ public class MenuActivity extends ListActivity
     	
     }
   
+    @Override
     public void onListItemClick(ListView parent, View v, int position, long id)
     {  
     	// intent for starting the applications
