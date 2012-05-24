@@ -1,6 +1,6 @@
 package uk.ac.cam.cl.dtg.android.language.graphics;
 
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +58,7 @@ public abstract class Container
 			mComponents[id] = comp;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception while adding component onto the array - " + e.getMessage());
+			L.e(LOG_TAG, "Exception while adding component onto the array - " + e.getMessage());
 		}
 	}
 
@@ -81,7 +81,7 @@ public abstract class Container
 			return mComponents[id];
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Unable to obtain the component that has id " + id
+			L.e(LOG_TAG, "Unable to obtain the component that has id " + id
 					+ " from the components array list - returning null");
 			return null;
 		}

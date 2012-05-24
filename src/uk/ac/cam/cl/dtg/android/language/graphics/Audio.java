@@ -6,7 +6,7 @@ import uk.ac.cam.cl.dtg.android.language.ApplicationInitializer;
 import uk.ac.cam.cl.dtg.android.language.AudioEditor;
 import uk.ac.cam.cl.dtg.android.language.CardDBAdapter;
 import uk.ac.cam.cl.dtg.android.language.CardRenderer;
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
@@ -164,7 +164,7 @@ public class Audio extends Component
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while setting data source - " + e.getMessage()
+			L.e(LOG_TAG, "Exception caught while setting data source - " + e.getMessage()
 					+ ". Printing stack trace:");
 			e.printStackTrace();
 		}
@@ -186,7 +186,7 @@ public class Audio extends Component
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing audio - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while serializing audio - " + e.getMessage());
 		}
 	}
 
@@ -196,11 +196,11 @@ public class Audio extends Component
 		// if the audio is played in this mode, stop the audio and change the
 		// icon
 		// otherwise, do nothing
-		MyLog.d(LOG_TAG, "stop() called");
+		L.d(LOG_TAG, "stop() called");
 
 		if (mTesting == false || mPlayOnTesting == true)
 		{
-			MyLog.d(LOG_TAG, "Stopping the audio");
+			L.d(LOG_TAG, "Stopping the audio");
 			if (mMediaPlayer != null)
 				mMediaPlayer.stop();
 			if (mHandler != null && mRunnable != null)
@@ -240,7 +240,7 @@ public class Audio extends Component
 				// not played twice on top of each other
 				if (mHandler != null && mRunnable != null)
 				{
-					MyLog.d(LOG_TAG, "Removing callbacks");
+					L.d(LOG_TAG, "Removing callbacks");
 					mHandler.removeCallbacks(mRunnable);
 				}
 

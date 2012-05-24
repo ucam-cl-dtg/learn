@@ -39,7 +39,7 @@ public class ErrorReportService extends Service implements Runnable
 			t.start();
 		} else
 		{
-			MyLog.e(LOG_TAG, "Seems that collection ID is not correct - not doing anything...");
+			L.e(LOG_TAG, "Seems that collection ID is not correct - not doing anything...");
 			this.stopSelf();
 		}
 

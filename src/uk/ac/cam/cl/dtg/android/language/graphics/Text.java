@@ -2,7 +2,7 @@ package uk.ac.cam.cl.dtg.android.language.graphics;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.TextEditor;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
 import android.app.Activity;
@@ -118,7 +118,7 @@ public class Text extends Component
 			serializer.attribute("", XMLStrings.XML_TEXT_TTSABLE, String.valueOf(mTTSable));
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing text - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while serializing text - " + e.getMessage());
 		}
 
 	}

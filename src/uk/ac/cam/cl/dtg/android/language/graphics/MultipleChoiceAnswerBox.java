@@ -10,7 +10,7 @@ import uk.ac.cam.cl.dtg.android.language.ApplicationInitializer;
 import uk.ac.cam.cl.dtg.android.language.CardDBAdapter;
 import uk.ac.cam.cl.dtg.android.language.ImageMCQEditor;
 import uk.ac.cam.cl.dtg.android.language.MultipleChoiceAnswer;
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
 import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
@@ -70,7 +70,7 @@ public class MultipleChoiceAnswerBox extends Component
 	@Override
   public void render()
 	{
-		MyLog.d(LOG_TAG, "Starting rendering a multiple choice answer");
+		L.d(LOG_TAG, "Starting rendering a multiple choice answer");
 
 		LinearLayout mainHolder = new LinearLayout(mContext);
 		mainHolder.setGravity(Gravity.CENTER);
@@ -127,7 +127,7 @@ public class MultipleChoiceAnswerBox extends Component
 			        + resourceID + "." + suffix), false);
 			    mainHolder.addView(iView);
 			  } catch (ResourceNotFoundException e){
-			    MyLog.e(LOG_TAG, e.getMessage());
+			    L.e(LOG_TAG, e.getMessage());
 			  }
 			} else
 			{
@@ -144,7 +144,7 @@ public class MultipleChoiceAnswerBox extends Component
 
 		mView = mainHolder;
 
-		MyLog.d(LOG_TAG, "Finished rendering a multiple choice answer");
+		L.d(LOG_TAG, "Finished rendering a multiple choice answer");
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class MultipleChoiceAnswerBox extends Component
 					String.valueOf(mAnswer.getCorrect()));
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing to XML - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while serializing to XML - " + e.getMessage());
 		}
 	}
 
@@ -284,7 +284,7 @@ public class MultipleChoiceAnswerBox extends Component
 
 				  return ibutton;
 				} catch (ResourceNotFoundException e){
-				  MyLog.e(LOG_TAG, e.getMessage());
+				  L.e(LOG_TAG, e.getMessage());
 				  return null;
 				}
 			} else
@@ -370,7 +370,7 @@ public class MultipleChoiceAnswerBox extends Component
 	@Override
 	public void drawYourselfOnto(ViewGroup v, LayoutParams params)
 	{
-		MyLog.d(LOG_TAG, "Drawing myself onto " + v.getWidth() + "x" + v.getHeight() + " frame");
+		L.d(LOG_TAG, "Drawing myself onto " + v.getWidth() + "x" + v.getHeight() + " frame");
 		super.drawYourselfOnto(v, params);
 	}
 

@@ -44,7 +44,7 @@ public class CollectionUploadService extends Service implements Runnable
 			t.start();
 		} else
 		{
-			MyLog.e(LOG_TAG, "Seems that collection ID is not correct - not doing anything...");
+			L.e(LOG_TAG, "Seems that collection ID is not correct - not doing anything...");
 			this.stopSelf();
 		}
 
@@ -83,17 +83,17 @@ public class CollectionUploadService extends Service implements Runnable
 				
 				showNotification(collectionID);
 
-				MyLog.d(LOG_TAG, "Zipping and upload went successfully");
+				L.d(LOG_TAG, "Zipping and upload went successfully");
 			} else
 			{
 
 				showFailedNotification(collectionID);
-				MyLog.e(LOG_TAG, "Upload failed");
+				L.e(LOG_TAG, "Upload failed");
 			}
 		} else
 		{
 			showFailedNotification(collectionID);
-			MyLog.e(LOG_TAG, "Zipping failed");
+			L.e(LOG_TAG, "Zipping failed");
 		}
 		
 		updateOngoingNotificationOnFinish();
@@ -110,7 +110,7 @@ public class CollectionUploadService extends Service implements Runnable
 	 */
 	private void showNotification(long localID)
 	{
-		MyLog.d(LOG_TAG, "showNotification() called");
+		L.d(LOG_TAG, "showNotification() called");
 		int icon = android.R.drawable.stat_sys_upload_done;
 		CharSequence tickerText = getString(R.string.upload_successful);
 		long when = System.currentTimeMillis();
@@ -185,7 +185,7 @@ public class CollectionUploadService extends Service implements Runnable
 		
 		if (mNumber == 1)
 		{
-			MyLog.d(LOG_TAG, "showNotification() called");
+			L.d(LOG_TAG, "showNotification() called");
 			int icon = android.R.drawable.stat_sys_upload;
 			CharSequence tickerText = getString(R.string.collection_being_uploaded);
 			long when = System.currentTimeMillis();
@@ -202,7 +202,7 @@ public class CollectionUploadService extends Service implements Runnable
 		}
 		else
 		{
-			MyLog.d(LOG_TAG, "showNotification() called");
+			L.d(LOG_TAG, "showNotification() called");
 			int icon = android.R.drawable.stat_sys_upload;
 			CharSequence tickerText = getString(R.string.multiple_collections_being_uploaded);
 			long when = System.currentTimeMillis();

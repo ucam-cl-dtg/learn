@@ -178,7 +178,7 @@ public class SettingsActivity extends PreferenceActivity
 			mAccountPreferenceGroup.addPreference(mRegisterAccountPreference);
 		}
 
-		MyLog.d(LOG_TAG, "Account data set - " + mAccountDataSet);
+		L.d(LOG_TAG, "Account data set - " + mAccountDataSet);
 
 		if (mAccountDataSet)
 		{

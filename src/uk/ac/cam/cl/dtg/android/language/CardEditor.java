@@ -103,7 +103,7 @@ public class CardEditor extends Activity implements AnswerListener
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		MyLog.d(LOG_TAG, "onCreate() called");
+		L.d(LOG_TAG, "onCreate() called");
 		
 		super.onCreate(savedInstanceState);
 
@@ -120,7 +120,7 @@ public class CardEditor extends Activity implements AnswerListener
 			// if instance is saved - recreate the editable from the bundle
 			if (savedInstanceState != null)
 			{
-				MyLog.d(LOG_TAG, "savedInstanceState is not null - analysing it");
+				L.d(LOG_TAG, "savedInstanceState is not null - analysing it");
 	
 				// get the current action from bundle
 				mCurrentAction = savedInstanceState.getInt(BUNDLE_ACTION);
@@ -137,7 +137,7 @@ public class CardEditor extends Activity implements AnswerListener
 					CardDBAdapter db = new CardDBAdapter();
 					db.open(mCollectionID);
 					try {
-					  MyLog.d(LOG_TAG, "Getting the card with id - " + id);
+					  L.d(LOG_TAG, "Getting the card with id - " + id);
 
 					  mCard = db.getCardById((long) id);
 					} finally {
@@ -148,7 +148,7 @@ public class CardEditor extends Activity implements AnswerListener
 						initializeFromXML(mCard.getXmlDescription());
 					} else
 					{
-						MyLog.e(LOG_TAG, "Card for editing does not exist - shutting down activity");
+						L.e(LOG_TAG, "Card for editing does not exist - shutting down activity");
 		
 						this.setResult(RESULT_CANCELED);
 						this.finish();
@@ -195,7 +195,7 @@ public class CardEditor extends Activity implements AnswerListener
 			// otherwise - analyse the intent
 			else
 			{
-				MyLog.d(LOG_TAG, "savedInstanceState is null - analysing intent");
+				L.d(LOG_TAG, "savedInstanceState is null - analysing intent");
 	
 				Intent intent = getIntent();
 	
@@ -225,7 +225,7 @@ public class CardEditor extends Activity implements AnswerListener
 						initializeFromXML(mCard.getXmlDescription());
 					} else
 					{
-						MyLog.e(LOG_TAG, "Card for editing does not exist - shutting down activity");
+						L.e(LOG_TAG, "Card for editing does not exist - shutting down activity");
 	
 						this.setResult(RESULT_CANCELED);
 						this.finish();
@@ -235,7 +235,7 @@ public class CardEditor extends Activity implements AnswerListener
 			}
     	}
 		
-		MyLog.d(LOG_TAG, "onCreate() finished");
+		L.d(LOG_TAG, "onCreate() finished");
 	}
 
 	/**
@@ -270,12 +270,12 @@ public class CardEditor extends Activity implements AnswerListener
 
 			String returnable = writer.toString();
 
-			MyLog.d(LOG_TAG, "Finished parsing to XML. The string is: " + returnable);
+			L.d(LOG_TAG, "Finished parsing to XML. The string is: " + returnable);
 
 			return returnable;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing the card to XML");
+			L.e(LOG_TAG, "Exception caught while serializing the card to XML");
 			return "";
 		}
 	}
@@ -322,7 +322,7 @@ public class CardEditor extends Activity implements AnswerListener
 				
 				deleteResult = fshelper.deleteUri(source);
 				
-				MyLog.d(LOG_TAG, "Original resource deleted - " + deleteResult);
+				L.d(LOG_TAG, "Original resource deleted - " + deleteResult);
 
 				mEditables[mIntentSenderID].setVideo(mCollectionID, resourceID, 0, true);
 				finishActivity(requestCode);
@@ -336,7 +336,7 @@ public class CardEditor extends Activity implements AnswerListener
 				
 				deleteResult = fshelper.deleteUri(source);
 				
-				MyLog.d(LOG_TAG, "Resource deleted - " + deleteResult);
+				L.d(LOG_TAG, "Resource deleted - " + deleteResult);
 				
 				mEditables[mIntentSenderID].setAudio(mCollectionID, resourceID, 0, true, true);
 				finishActivity(requestCode);
@@ -408,7 +408,7 @@ public class CardEditor extends Activity implements AnswerListener
 				break;
 			case Editable.TEXT_MCQ_TAG:
 
-				MyLog.d(LOG_TAG, "Received the result from the text MC answer");
+				L.d(LOG_TAG, "Received the result from the text MC answer");
 
 				MultipleChoiceAnswer answer = new MultipleChoiceAnswer(XMLStrings.XML_ANSWER_TYPE_MC_TEXT);
 				answer.addOption(data.getStringExtra(TextMCQEditor.INTENT_OPTION_1));
@@ -520,7 +520,7 @@ public class CardEditor extends Activity implements AnswerListener
 	@Override
 	protected void onSaveInstanceState(Bundle outState)
 	{
-		MyLog.d(LOG_TAG, "onSaveInstanceState() called");
+		L.d(LOG_TAG, "onSaveInstanceState() called");
 
 		if (mCurrentState != STATE_STARTING_ACTIVITY)
 		{
@@ -548,7 +548,7 @@ public class CardEditor extends Activity implements AnswerListener
 
 		super.onSaveInstanceState(outState);
 
-		MyLog.d(LOG_TAG, "onSaveInstanceState() finished");
+		L.d(LOG_TAG, "onSaveInstanceState() finished");
 	}
 
 	private void redraw()
@@ -570,7 +570,7 @@ public class CardEditor extends Activity implements AnswerListener
 	 */
 	private void saveChanges()
 	{
-		MyLog.d(LOG_TAG, "saveChanges() called");
+		L.d(LOG_TAG, "saveChanges() called");
 		
 		boolean allEmpty = true;
 		
@@ -587,7 +587,7 @@ public class CardEditor extends Activity implements AnswerListener
 				String xmlDesc = toXML();
 				int type = getCardType();
 				
-				MyLog.d(LOG_TAG, "Card is of " + type + " type");
+				L.d(LOG_TAG, "Card is of " + type + " type");
 				
 				CardDBAdapter db = new CardDBAdapter();
 				db.open(mCollectionID);
@@ -660,7 +660,7 @@ public class CardEditor extends Activity implements AnswerListener
 		if (type == null)
 			type = Editable.EMPTY;
 
-		MyLog.d(LOG_TAG, "Filling element: id - " + componentID + ", type - " + type);
+		L.d(LOG_TAG, "Filling element: id - " + componentID + ", type - " + type);
 
 		mEditables[componentID] = new Editable(this, componentID, mCollectionID);
 
@@ -806,7 +806,7 @@ public class CardEditor extends Activity implements AnswerListener
 
 	private void instantiateContainer(int containerType)
 	{
-		MyLog.d(LOG_TAG, "instantiateContainer() called");
+		L.d(LOG_TAG, "instantiateContainer() called");
 
 		mContainerType = containerType;
 
@@ -842,7 +842,7 @@ public class CardEditor extends Activity implements AnswerListener
 	{
 		try
 		{
-			MyLog.d(LOG_TAG, xmlDescription);
+			L.d(LOG_TAG, xmlDescription);
 			
 			
 			// let the parser fill in the ones
@@ -864,7 +864,7 @@ public class CardEditor extends Activity implements AnswerListener
 			reader.parse(iSource);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Error while parsing XML - " + e.getMessage()
+			L.e(LOG_TAG, "Error while parsing XML - " + e.getMessage()
 					+ ". Printing stack trace:");
 
 			e.printStackTrace();
@@ -882,7 +882,7 @@ public class CardEditor extends Activity implements AnswerListener
 
 	private void prepareEmptyEditor(int containerType)
 	{
-		MyLog.d(LOG_TAG, "prepareEmptyEditor() called with the container type "
+		L.d(LOG_TAG, "prepareEmptyEditor() called with the container type "
 				+ String.valueOf(containerType));
 
 		instantiateContainer(containerType);
@@ -914,7 +914,7 @@ public class CardEditor extends Activity implements AnswerListener
 		if (mContainer != null)
 		{
 			mContainer.stopComponents();
-			MyLog.d(LOG_TAG, "Stopping components");
+			L.d(LOG_TAG, "Stopping components");
 		}
 	}
 
@@ -924,7 +924,7 @@ public class CardEditor extends Activity implements AnswerListener
 	@Override
 	protected void onPause()
 	{
-		MyLog.d(LOG_TAG, "onPause() called");
+		L.d(LOG_TAG, "onPause() called");
 		
 		saveChanges();
 		
@@ -932,15 +932,15 @@ public class CardEditor extends Activity implements AnswerListener
 		
 		super.onPause();
 		
-		MyLog.d(LOG_TAG, "onPause() finished");
+		L.d(LOG_TAG, "onPause() finished");
 	}
 
 	@Override
 	protected void onDestroy()
 	{
-		MyLog.d(LOG_TAG, "onDestroy() called");
+		L.d(LOG_TAG, "onDestroy() called");
 		super.onDestroy();		
-		MyLog.d(LOG_TAG, "onDestroy() finished");
+		L.d(LOG_TAG, "onDestroy() finished");
 	}
 
 	/**

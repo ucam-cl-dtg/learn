@@ -34,7 +34,7 @@ public class TextMCQEditor extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		MyLog.d(LOG_TAG, "onCreate() called");
+		L.d(LOG_TAG, "onCreate() called");
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -134,7 +134,7 @@ public class TextMCQEditor extends Activity
 			}
 		}
 
-		MyLog.d(LOG_TAG, "onCreate() finished");
+		L.d(LOG_TAG, "onCreate() finished");
 
 	}
 

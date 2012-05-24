@@ -1,6 +1,6 @@
 package uk.ac.cam.cl.dtg.android.language.graphics;
 
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.view.Gravity;
@@ -75,7 +75,7 @@ public class TwoEqualComponentContainer extends Container
 			c.drawYourselfOnto(firstComponent, defaultParams);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while drawing component 0 - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while drawing component 0 - " + e.getMessage());
 		}
 
 		c = obtainComponent(1);
@@ -84,7 +84,7 @@ public class TwoEqualComponentContainer extends Container
 			c.drawYourselfOnto(secondComponent, defaultParams);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while drawing component 1 - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while drawing component 1 - " + e.getMessage());
 		}
 
 		return mView;

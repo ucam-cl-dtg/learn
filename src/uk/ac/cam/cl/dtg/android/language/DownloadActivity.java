@@ -117,7 +117,7 @@ public class DownloadActivity extends TabActivity implements
 		specPopularity.setContent(new TabHost.TabContentFactory() {
 			@Override
       public View createTabContent(String tag) {
-				MyLog.d(LOG_TAG, "Adding create tab content for popularity");
+				L.d(LOG_TAG, "Adding create tab content for popularity");
 
 				mCollectionsPopularity = new ArrayList<OnlineCollection>();
 
@@ -132,7 +132,7 @@ public class DownloadActivity extends TabActivity implements
 					@Override
 					public void onScroll(AbsListView arg0, int arg1, int arg2,
 							int totalItemCount) {
-						MyLog.d(LOG_TAG + "- popularity", arg1 + ", " + arg2
+						L.d(LOG_TAG + "- popularity", arg1 + ", " + arg2
 								+ ", " + totalItemCount);
 
 						int lastVisible = arg0.getLastVisiblePosition();
@@ -180,7 +180,7 @@ public class DownloadActivity extends TabActivity implements
 					@Override
 					public void onScroll(AbsListView arg0, int arg1, int arg2,
 							int totalItemCount) {
-						MyLog.d(LOG_TAG + "- date", arg1 + ", " + arg2 + ", "
+						L.d(LOG_TAG + "- date", arg1 + ", " + arg2 + ", "
 								+ totalItemCount);
 						// TODO Auto-generated method stub
 						int lastVisible = arg0.getLastVisiblePosition();
@@ -220,7 +220,7 @@ public class DownloadActivity extends TabActivity implements
 
 	@Override
 	public void onTabChanged(String tabId) {
-		MyLog.d(LOG_TAG, "Keyword is " + mKeyword);
+		L.d(LOG_TAG, "Keyword is " + mKeyword);
 
 		if (tabId.equals(TAB_BY_POPULARITY)) {
 			mAdapterPopularity.dataSetChangeOnActivation();
@@ -364,7 +364,7 @@ public class DownloadActivity extends TabActivity implements
 
 			@Override
 			protected FilterResults performFiltering(CharSequence constraint) {
-				MyLog.d(LOG_TAG, "performFiltering() called - " + constraint);
+				L.d(LOG_TAG, "performFiltering() called - " + constraint);
 				mGotMore = true;
 				stopThread();
 
@@ -450,7 +450,7 @@ public class DownloadActivity extends TabActivity implements
 					DownloadActivity.this
 							.setProgressBarIndeterminateVisibility(false);
 
-					MyLog.d(LOG_TAG, "Added " + mAddedThisSession);
+					L.d(LOG_TAG, "Added " + mAddedThisSession);
 
 					if (mAddedThisSession < COUNT_LOAD_INCREMENT)
 						mGotMore = false;
@@ -524,7 +524,7 @@ public class DownloadActivity extends TabActivity implements
 				CollectionFeedHandler handler = new CollectionFeedHandler();
 				mReader.setContentHandler(handler);
 			} catch (Exception e) {
-				MyLog.e(LOG_TAG,
+				L.e(LOG_TAG,
 						"Exception caught while initializing XML parser");
 			}
 		}
@@ -549,7 +549,7 @@ public class DownloadActivity extends TabActivity implements
 		}
 
 		private synchronized void startDownloading() {
-			MyLog.d(LOG_TAG, "startDownloading() called");
+			L.d(LOG_TAG, "startDownloading() called");
 
 			if (!mThreadRunning) {
 				mThread = new Thread(this);
@@ -633,7 +633,7 @@ public class DownloadActivity extends TabActivity implements
 
 				int currentCount = mItemsShown.size();
 
-				MyLog.d(LOG_TAG, "Downloading from - " + currentCount);
+				L.d(LOG_TAG, "Downloading from - " + currentCount);
 
 				form.addPart(HTTP_REQUEST_FROM, new StringBody(String
 						.valueOf(currentCount)));
@@ -658,11 +658,11 @@ public class DownloadActivity extends TabActivity implements
 
 				return true;
 			} catch (Exception e) {
-				MyLog.e(LOG_TAG, "Error in XML parsing - " + e.toString());
+				L.e(LOG_TAG, "Error in XML parsing - " + e.toString());
 
 				e.printStackTrace();
 
-				MyLog.e(LOG_TAG, "Restarting in 0.5 second");
+				L.e(LOG_TAG, "Restarting in 0.5 second");
 
 				if (mAttempt < ATTEMPT_LIMIT) {
 					mAttempt++;
@@ -675,7 +675,7 @@ public class DownloadActivity extends TabActivity implements
 						return false;
 					}
 				} else {
-					MyLog.d(LOG_TAG,
+					L.d(LOG_TAG,
 							"Attempt limit reached - showing dialog box");
 
 					mHandler.sendEmptyMessage(DOWNLOAD_FAILED);

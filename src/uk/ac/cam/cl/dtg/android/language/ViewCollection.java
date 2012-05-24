@@ -158,7 +158,7 @@ public class ViewCollection extends Activity
 				}
 			}
 
-			MyLog.d(LOG_TAG, "total count is " + totalCount + ", correct count is " + correctCount);
+			L.d(LOG_TAG, "total count is " + totalCount + ", correct count is " + correctCount);
 
 			float score;
 
@@ -228,7 +228,7 @@ public class ViewCollection extends Activity
 			}
 
 		} else
-			MyLog.e(LOG_TAG, "Collection is empty - no point in inflating views");
+			L.e(LOG_TAG, "Collection is empty - no point in inflating views");
 
 	}
 
@@ -239,7 +239,7 @@ public class ViewCollection extends Activity
 	 */
 	private void showRatingDialog()
 	{
-		MyLog.d(LOG_TAG, "showRatingDialog() called");
+		L.d(LOG_TAG, "showRatingDialog() called");
 
 		// set up the dialog
 		AlertDialog.Builder ratingDialogBuilder = new AlertDialog.Builder(ViewCollection.this);

@@ -116,7 +116,7 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 			mCorrectAnswer = intent.getIntExtra(INTENT_CORRECT_ANSWER, -1);
 			mCollectionID = intent.getLongExtra(INTENT_COLLECTION_ID, -1);
 
-			MyLog.d(LOG_TAG, "collection id from intent is " + mCollectionID);
+			L.d(LOG_TAG, "collection id from intent is " + mCollectionID);
 
 			instantiateImagesAndButtons();
 		} else
@@ -242,7 +242,7 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 		String path = "file://" + ApplicationInitializer.COLLECTIONS_FOLDER + mCollectionID + "/"
 				+ mResourceIDs[id] + "." + suffix;
 
-		MyLog.d(LOG_TAG, "Path string is " + path);
+		L.d(LOG_TAG, "Path string is " + path);
 
 		Uri source = Uri.parse(path);
 
@@ -271,7 +271,7 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 				try {
           makeImage(i);
         } catch (ResourceNotFoundException e) {
-          MyLog.e(LOG_TAG, e.getMessage());
+          L.e(LOG_TAG, e.getMessage());
           // fall back to just making a button
           makeButton(i);
         }
@@ -420,7 +420,7 @@ public class ImageMCQEditor extends Activity implements OnLongClickListener,
 			try {
         makeImage(id);
       } catch (ResourceNotFoundException e) {
-        MyLog.e(LOG_TAG, "Could not make image for id ("+id+") :" + e.getMessage());
+        L.e(LOG_TAG, "Could not make image for id ("+id+") :" + e.getMessage());
       }
 		}
 	}

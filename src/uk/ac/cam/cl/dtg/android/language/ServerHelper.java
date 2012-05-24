@@ -106,10 +106,10 @@ public class ServerHelper
 
 			String responseString = getResponseString(URL_RATE, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -133,10 +133,10 @@ public class ServerHelper
 
 			String responseString = getResponseString(URL_UNSHARE, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
 			e.printStackTrace();
 
 			try
@@ -184,7 +184,7 @@ public class ServerHelper
 			// loop through dirList, and zip the files
 			for (int i = 0; i < dirList.length; i++)
 			{
-				MyLog.d(LOG_TAG, "Adding " + dirList[i] + " to temporary zip file");
+				L.d(LOG_TAG, "Adding " + dirList[i] + " to temporary zip file");
 
 				File f = new File(zipDir, dirList[i]);
 
@@ -215,7 +215,7 @@ public class ServerHelper
 			return true;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while zipping a file - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while zipping a file - " + e.getMessage());
 
 			// delete the file
 			try
@@ -223,7 +223,7 @@ public class ServerHelper
 				new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 			} catch (Exception e1)
 			{
-				MyLog.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
+				L.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
 			}
 
 			// release the lock from the collection
@@ -280,7 +280,7 @@ public class ServerHelper
 
 			String responseString = getResponseString(URL_UPDATE, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 
 			// get the response code
 			long responseCode = Long.parseLong(responseString);
@@ -308,7 +308,7 @@ public class ServerHelper
 			return result;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while uploading file - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while uploading file - " + e.getMessage());
 			if (attempt < ATTEMPT_LIMIT)
 			{
 				try
@@ -323,7 +323,7 @@ public class ServerHelper
 						new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 					} catch (Exception e2)
 					{
-						MyLog.d(LOG_TAG,
+						L.d(LOG_TAG,
 								"File could not have been deleted - it might be not created yet");
 					}
 
@@ -343,7 +343,7 @@ public class ServerHelper
 					new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 				} catch (Exception e1)
 				{
-					MyLog.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
+					L.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
 				}
 
 				// release the lock from the collection
@@ -395,7 +395,7 @@ public class ServerHelper
 
 			String responseString = getResponseString(URL_UPLOAD, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 
 			// get the response code
 			long responseCode = Long.parseLong(responseString);
@@ -427,7 +427,7 @@ public class ServerHelper
 			return result;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while uploading file - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while uploading file - " + e.getMessage());
 			if (attempt < ATTEMPT_LIMIT)
 			{
 				try
@@ -442,7 +442,7 @@ public class ServerHelper
 						new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 					} catch (Exception e2)
 					{
-						MyLog.d(LOG_TAG,
+						L.d(LOG_TAG,
 								"File could not have been deleted - it might be not created yet");
 					}
 
@@ -461,7 +461,7 @@ public class ServerHelper
 					new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 				} catch (Exception e1)
 				{
-					MyLog.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
+					L.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
 				}
 
 				// release the lock from the collection
@@ -480,7 +480,7 @@ public class ServerHelper
 	{
 		try
 		{
-			MyLog.d(LOG_TAG, "downloadFile() called");
+			L.d(LOG_TAG, "downloadFile() called");
 
 			MultipartEntity form = new MultipartEntity();
 
@@ -494,7 +494,7 @@ public class ServerHelper
 
 			String response = getResponseString(URL_DOWNLOAD, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is - " + response);
+			L.d(LOG_TAG, "Response of the server is - " + response);
 
 			BufferedInputStream bufferedInputStream = new BufferedInputStream(obtainInputStream(
 					response, null));
@@ -516,7 +516,7 @@ public class ServerHelper
 			return true;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Error occured while downloading the file - retrying in a few seconds");
+			L.e(LOG_TAG, "Error occured while downloading the file - retrying in a few seconds");
 
 			e.printStackTrace();
 
@@ -527,7 +527,7 @@ public class ServerHelper
 					new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 				} catch (Exception e2)
 				{
-					MyLog.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
+					L.d(LOG_TAG, "File could not have been deleted - it might be not created yet");
 				}
 
 				return false;
@@ -544,7 +544,7 @@ public class ServerHelper
 						new File(ApplicationInitializer.COLLECTIONS_FOLDER + tempFileName).delete();
 					} catch (Exception e2)
 					{
-						MyLog.d(LOG_TAG,
+						L.d(LOG_TAG,
 								"File could not have been deleted - it might be not created yet");
 					}
 					return false;
@@ -573,7 +573,7 @@ public class ServerHelper
 	{
 		try
 		{
-			MyLog.d(LOG_TAG, "unzipFile() called");
+			L.d(LOG_TAG, "unzipFile() called");
 			File targetFolder = new File(ApplicationInitializer.COLLECTIONS_FOLDER + localID + "/");
 			targetFolder.mkdirs();
 
@@ -618,7 +618,7 @@ public class ServerHelper
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while unzipping file - printing stack trace. "
+			L.e(LOG_TAG, "Exception caught while unzipping file - printing stack trace. "
 					+ e.getMessage());
 
 			if (deleteIfFailed)
@@ -661,25 +661,25 @@ public class ServerHelper
 				}
 			}
 
-			MyLog.d(LOG_TAG, "Sending request string - " + requestString);
+			L.d(LOG_TAG, "Sending request string - " + requestString);
 
 			// add the collection attributes
 			form.addPart("globalIDs", new StringBody(requestString.toString()));
 
 			String responseString = getResponseString(URL_CHECK_UPDATES, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 
 			if (!responseString.equals(""))
 			{
-				MyLog.d(LOG_TAG, "Response string is not empty");
+				L.d(LOG_TAG, "Response string is not empty");
 				String[] globalIDs = responseString.split("\\,");
 
 				long[] result = new long[globalIDs.length];
 
 				for (int i = 0; i < globalIDs.length; i++)
 				{
-					MyLog.d(LOG_TAG, "Split string - " + globalIDs[i]);
+					L.d(LOG_TAG, "Split string - " + globalIDs[i]);
 
 					result[i] = Long.parseLong(globalIDs[i]);
 				}
@@ -690,7 +690,7 @@ public class ServerHelper
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while receiving update list - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while receiving update list - " + e.getMessage());
 			e.printStackTrace();
 
 			if (attempt < ATTEMPT_LIMIT)
@@ -727,10 +727,10 @@ public class ServerHelper
 
 			String responseString = getResponseString(URL_REPORT_ERROR, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
 			e.printStackTrace();
 
 			try
@@ -763,7 +763,7 @@ public class ServerHelper
 
 			String responseString = getResponseString(URL_REGAIN_RIGHTS, form);
 
-			MyLog.d(LOG_TAG, "Response of the server is " + responseString);
+			L.d(LOG_TAG, "Response of the server is " + responseString);
 			
 			if (responseString.equals("1"))
 			{
@@ -778,7 +778,7 @@ public class ServerHelper
 			
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while rating collection - " + e.getMessage());
 			e.printStackTrace();
 			
 			if (attempt < ATTEMPT_LIMIT)

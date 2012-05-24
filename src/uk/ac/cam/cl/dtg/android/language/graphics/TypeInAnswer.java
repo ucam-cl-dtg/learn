@@ -3,7 +3,7 @@ package uk.ac.cam.cl.dtg.android.language.graphics;
 import org.xmlpull.v1.XmlSerializer;
 
 import uk.ac.cam.cl.dtg.android.language.AnswerListener;
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.TypeInAnswerEditor;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
@@ -161,7 +161,7 @@ public class TypeInAnswer extends Component
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing type in answer - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while serializing type in answer - " + e.getMessage());
 		}
 	}
 

@@ -69,12 +69,12 @@ public class CardDBAdapter
 	{
 
 		String path = ApplicationInitializer.COLLECTIONS_FOLDER + collectionID;
-		MyLog.d(LOG_TAG, "Opening database at the path " + path);
+		L.d(LOG_TAG, "Opening database at the path " + path);
 
 		File databaseFolder = new File(path);
 		if (!databaseFolder.exists())
 		{
-			MyLog.d(LOG_TAG, "Database folder does not exist - creating a new one");
+			L.d(LOG_TAG, "Database folder does not exist - creating a new one");
 			databaseFolder.mkdirs();
 		}
 

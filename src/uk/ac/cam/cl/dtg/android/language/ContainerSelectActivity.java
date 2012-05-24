@@ -147,17 +147,17 @@ public class ContainerSelectActivity extends ListActivity
 				{
 					iconView.setImageBitmap(o.getIcon());
 				} else
-					MyLog.d("CreationActivity", "Container icon is null...");
+					L.d("CreationActivity", "Container icon is null...");
 
 				if (topText != null)
 				{
 					topText.setTextSize(TITLE_TEXT_SIZE);
 					topText.setText(o.getTitle());
 				} else
-					MyLog.d("CreationActivity", "Container top text is null...");
+					L.d("CreationActivity", "Container top text is null...");
 
 			} else
-				MyLog.d("CreationActivity", "Menu object is null...");
+				L.d("CreationActivity", "Menu object is null...");
 			return v;
 		}
 	}

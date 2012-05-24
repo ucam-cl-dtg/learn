@@ -6,7 +6,7 @@ import uk.ac.cam.cl.dtg.android.language.ApplicationInitializer;
 import uk.ac.cam.cl.dtg.android.language.CardDBAdapter;
 import uk.ac.cam.cl.dtg.android.language.CardRenderer;
 import uk.ac.cam.cl.dtg.android.language.DelayEditor;
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
 import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
@@ -55,7 +55,7 @@ public class Video extends Component
 	@Override
   public void render()
 	{
-		MyLog.d(LOG_TAG, "render() called");
+		L.d(LOG_TAG, "render() called");
 		
 		// set up the VideoView
 		final LinearLayout mainHolder = new LinearLayout(mContext);
@@ -96,7 +96,7 @@ public class Video extends Component
 			    MediaListener mListener = new MediaListener();
 			    mVideoView.setOnTouchListener(mListener);
 
-			    MyLog.d(LOG_TAG, String.valueOf(mDelay
+			    L.d(LOG_TAG, String.valueOf(mDelay
 			        + CardRenderer.DURATION_TOTAL_LAG));
 
 			    mVideoView.start();
@@ -105,7 +105,7 @@ public class Video extends Component
 			        ViewGroup.LayoutParams.WRAP_CONTENT,
 			        ViewGroup.LayoutParams.WRAP_CONTENT));
 			  } catch (ResourceNotFoundException e){
-			    MyLog.w(LOG_TAG, e.getMessage());
+			    L.w(LOG_TAG, e.getMessage());
 			  }
 
 			}
@@ -128,7 +128,7 @@ public class Video extends Component
 			serializer.attribute("", XMLStrings.XML_MEDIA_DELAY, String.valueOf(mDelay));
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing video - "
+			L.e(LOG_TAG, "Exception caught while serializing video - "
 					+ e.getMessage());
 		}
 	}

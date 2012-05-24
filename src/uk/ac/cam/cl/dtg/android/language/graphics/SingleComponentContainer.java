@@ -1,6 +1,6 @@
 package uk.ac.cam.cl.dtg.android.language.graphics;
 
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
@@ -28,7 +28,7 @@ public class SingleComponentContainer extends Container
 	@Override
 	public View drawContainer()
 	{
-		MyLog.i(LOG_TAG, "Starting to draw a single component container");
+		L.i(LOG_TAG, "Starting to draw a single component container");
 
 		// set the empty linear container as a content view
 		
@@ -51,11 +51,11 @@ public class SingleComponentContainer extends Container
 			c.drawYourselfOnto(mView, defaultParams);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while drawing element on component 0 - "
+			L.e(LOG_TAG, "Exception caught while drawing element on component 0 - "
 					+ e.getMessage());
 		}
 
-		MyLog.i(LOG_TAG, "Finished drawing a single component container");
+		L.i(LOG_TAG, "Finished drawing a single component container");
 
 		return mView;
 	}

@@ -1,6 +1,6 @@
 package uk.ac.cam.cl.dtg.android.language.graphics;
 
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
@@ -29,7 +29,7 @@ public class TwoComponentContainer extends Container
 	@Override
 	public View drawContainer()
 	{
-		MyLog.i(LOG_TAG, "Starting drawing a two component container");
+		L.i(LOG_TAG, "Starting drawing a two component container");
 
 		mView.setOrientation(LinearLayout.VERTICAL);
 		mView.setGravity(Gravity.CENTER);
@@ -52,7 +52,7 @@ public class TwoComponentContainer extends Container
 			c.drawYourselfOnto(firstComponent, defaultParams);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while drawing component 0 - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while drawing component 0 - " + e.getMessage());
 		}
 
 		// layout the 2nd component
@@ -67,13 +67,13 @@ public class TwoComponentContainer extends Container
 			c.drawYourselfOnto(secondComponent, defaultParams);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while drawing component 1 - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while drawing component 1 - " + e.getMessage());
 		}
 
 		mFrames[0] = firstComponent;
 		mFrames[1] = secondComponent;
 
-		MyLog.i(LOG_TAG, "Finished drawing a two component container");
+		L.i(LOG_TAG, "Finished drawing a two component container");
 
 		return mView;
 	}

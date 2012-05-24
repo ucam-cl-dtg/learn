@@ -134,7 +134,7 @@ public class CardRenderer
 			reader.parse(iSource);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Error in XML parsing - " + e.toString());
+			L.e(LOG_TAG, "Error in XML parsing - " + e.toString());
 		}
 	}
 
@@ -164,7 +164,7 @@ public class CardRenderer
 			mContainer = new ThreeComponentContainer(mContext);
 			break;
 		}
-		MyLog.d(LOG_TAG, "Card rendering was initialized");
+		L.d(LOG_TAG, "Card rendering was initialized");
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class CardRenderer
 
 		if (elementType == null)
 		{
-			MyLog.d(LOG_TAG,
+			L.d(LOG_TAG,
 					"drawElement() - element type is null, something might have went wrong...");
 			elementType = "";
 		}
@@ -326,7 +326,7 @@ public class CardRenderer
 			}
 		}
 
-		MyLog.d(LOG_TAG, "Filled component " + targetComponent + " with " + elementType);
+		L.d(LOG_TAG, "Filled component " + targetComponent + " with " + elementType);
 	}
 
 	/**
@@ -347,28 +347,28 @@ public class CardRenderer
 	 */
 	private void finishedCard()
 	{
-		MyLog.d(LOG_TAG, "finishedCard() called");
-		MyLog.d(LOG_TAG, "Child count before is - " + mAnimator.getChildCount());
+		L.d(LOG_TAG, "finishedCard() called");
+		L.d(LOG_TAG, "Child count before is - " + mAnimator.getChildCount());
 
 		while (mAnimator.getChildCount() > 1)
 		{
 			mAnimator.removeViewAt(0);
 		}
 
-		MyLog.d(LOG_TAG, "Child count after is - " + mAnimator.getChildCount());
+		L.d(LOG_TAG, "Child count after is - " + mAnimator.getChildCount());
 
 		// start playing audio stuff, video, etc, etc..
 		View newView = mContainer.drawContainer();
 
 		mAnimator.addView(newView);
 
-		MyLog.d(LOG_TAG, "Starting hiding the keyboard");
+		L.d(LOG_TAG, "Starting hiding the keyboard");
 
 		// hide the soft keyboard
 		InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(mAnimator.getWindowToken(), 0);
 
-		MyLog.d(LOG_TAG, "Finished hiding keyboard");
+		L.d(LOG_TAG, "Finished hiding keyboard");
 
 		mAnimator.showNext();
 	}
@@ -422,7 +422,7 @@ public class CardRenderer
 
 				if (mCardStarted)
 				{
-					MyLog.e(LOG_TAG, "Card parsing already started - check for duplicate <card> tags");
+					L.e(LOG_TAG, "Card parsing already started - check for duplicate <card> tags");
 					throw new SAXException("Card parsing already started - check for duplicate <card> tags");
 				} else
 				{
@@ -434,9 +434,9 @@ public class CardRenderer
 							containerID = Integer.parseInt(attributes.getValue(XMLStrings.XML_CONTAINER_TYPE));
 						} catch (Exception e)
 						{
-							MyLog.e(LOG_TAG, "Exception caught while obtaining container type - "
+							L.e(LOG_TAG, "Exception caught while obtaining container type - "
 									+ e.getMessage());
-							MyLog.d(
+							L.d(
 									LOG_TAG,
 									"Setting container to the three component container - so that we are sure we will fit everything that's on the card in");
 							containerID = Container.CONTAINER_THREECOMPONENT;
@@ -446,7 +446,7 @@ public class CardRenderer
 						initializeCard(containerID);
 					} catch (Exception e)
 					{
-						MyLog.e(LOG_TAG, "Exception caught while initializing card - "
+						L.e(LOG_TAG, "Exception caught while initializing card - "
 								+ e.getMessage());
 					}
 				}
@@ -456,7 +456,7 @@ public class CardRenderer
 				drawElement(attributes);
 			} else
 			{
-				MyLog.d(LOG_TAG, "Unrecognized XML tag...");
+				L.d(LOG_TAG, "Unrecognized XML tag...");
 			}
 
 		}

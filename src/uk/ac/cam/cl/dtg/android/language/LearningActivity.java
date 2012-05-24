@@ -215,7 +215,7 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 		switch (algorithmID)
 		{
 		case LearningAlgorithm.SIMPLE_ALGORITHM:
-			MyLog.d(LOG_TAG, "Initializing simple algorithm");
+			L.d(LOG_TAG, "Initializing simple algorithm");
 
 			if (state == null)
 				mLearningAlgorithm = new SimpleAlgorithm(mCards);
@@ -223,7 +223,7 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 				mLearningAlgorithm = new SimpleAlgorithm(mCards, state);
 			break;
 		case LearningAlgorithm.ITERATING_ALGORITHM:
-			MyLog.d(LOG_TAG, "Initializing iterating algorithm");
+			L.d(LOG_TAG, "Initializing iterating algorithm");
 
 			if (state == null)
 				mLearningAlgorithm = new IteratingAlgorithm(mCards);
@@ -232,7 +232,7 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 			break;
 		case LearningAlgorithm.LEITNER_ALGORITHM:
 
-			MyLog.d(LOG_TAG, "Initializing Leitner algorithm");
+			L.d(LOG_TAG, "Initializing Leitner algorithm");
 
 			if (state == null)
 				mLearningAlgorithm = new LeitnerAlgorithm(mCards, mStatisticsHelper.getStatistics());
@@ -242,7 +242,7 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 			break;
 		case LearningAlgorithm.NEGATIVE_LEITNER_ALGORITHM:
 
-			MyLog.d(LOG_TAG, "Initializing negative Leitner algorithm");
+			L.d(LOG_TAG, "Initializing negative Leitner algorithm");
 
 			if (state == null)
 				mLearningAlgorithm = new NegativeLeitnerAlgorithm(mCards, mStatisticsHelper.getStatistics());
@@ -395,7 +395,7 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 				startCollectionBrowser();
 		} else
 		{
-			MyLog.e(LOG_TAG,
+			L.e(LOG_TAG,
 					"The card given by the learning algorithm is null... - getting back to collection browser");
 			this.showNoMoreCardsToast();
 			mCardRenderer.slideOut();
@@ -453,7 +453,7 @@ public class LearningActivity extends Activity implements AnswerListener, OnGest
 			showCard(nextCard, false);
 		} else
 		{
-			MyLog.e(LOG_TAG,
+			L.e(LOG_TAG,
 					"Card with particular ID not found - just showing the next one that learning algorithm decides..");
 			showNext();
 		}

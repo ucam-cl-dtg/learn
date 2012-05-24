@@ -56,7 +56,7 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 			switch (msg.what)
 			{
 			case MESSAGE_WHAT_TYPE_CHANGED:
-				MyLog.d(LOG_TAG, "Collection type changed");
+				L.d(LOG_TAG, "Collection type changed");
 
 				Bundle bundle = msg.getData();
 
@@ -145,7 +145,7 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 			mThread = new Thread(this);
 			mThread.start();
 		} else
-			MyLog.e(LOG_TAG, "Collection is empty - no point in inflating views");
+			L.e(LOG_TAG, "Collection is empty - no point in inflating views");
 
 	}
 
@@ -238,7 +238,7 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 			  // set the rating bar to show your rating
 			  mRatingBar.setRating((float) c.getRating());
 			} catch (IOException e){
-			  MyLog.e(LOG_TAG, e.getMessage());
+			  L.e(LOG_TAG, e.getMessage());
 			}
 
 			TextView ratingView = (TextView) findViewById(R.id.rating_count);
@@ -314,7 +314,7 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 	 */
 	private void showRatingDialog()
 	{
-		MyLog.d(LOG_TAG, "showRatingDialog() called");
+		L.d(LOG_TAG, "showRatingDialog() called");
 
 		// set up the dialog
 		AlertDialog.Builder ratingDialogBuilder = new AlertDialog.Builder(this);
@@ -352,7 +352,7 @@ public class OnlineCollectionViewer extends Activity implements Runnable
 				  }
 
 				} catch (IOException e){
-				  MyLog.e(LOG_TAG, e.getMessage());
+				  L.e(LOG_TAG, e.getMessage());
 				} finally {
 				  db.close();
 				}
@@ -395,7 +395,7 @@ public class OnlineCollectionViewer extends Activity implements Runnable
         localCollection = db.getCollectionByGlobalID(mCollection.getGlobalID());
         newType = localCollection.getType();
       } catch (IOException e) {
-        MyLog.e(LOG_TAG, e.getMessage());
+        L.e(LOG_TAG, e.getMessage());
         newType = -1;
       } finally {
         db.close();

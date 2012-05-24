@@ -35,7 +35,7 @@ public class CollectionDownloadService extends Service implements Runnable
 	@Override
 	public void onStart(Intent intent, int startId)
 	{
-		MyLog.d(LOG_TAG, "onStart() called");
+		L.d(LOG_TAG, "onStart() called");
 
 		mLocalID = intent.getLongExtra(INTENT_COLLECTION_LOCAL_ID, -1);
 		mGlobalID = intent.getLongExtra(INTENT_COLLECTION_GLOBAL_ID, -1);
@@ -69,11 +69,11 @@ public class CollectionDownloadService extends Service implements Runnable
 		{
 			boolean resultUnzip = ServerHelper.unzipFile(localId, tempFileName, true);
 
-			MyLog.d(LOG_TAG, "Result of unzipping - " + resultUnzip);
+			L.d(LOG_TAG, "Result of unzipping - " + resultUnzip);
 
 			if (resultUnzip)
 			{
-				MyLog.d(LOG_TAG, "Downloading and unzipping went successfully");
+				L.d(LOG_TAG, "Downloading and unzipping went successfully");
 				
 				// hide collection resources away from other applications
 				ApplicationInitializer.hideCollectionResources(localId);
@@ -93,7 +93,7 @@ public class CollectionDownloadService extends Service implements Runnable
 	}
 
 	private void dealWithCollectionDownloadFailure(String message, long localId){
-	  MyLog.e(LOG_TAG, message);
+	  L.e(LOG_TAG, message);
 
     showFailedNotification(localId);
 
@@ -114,13 +114,13 @@ public class CollectionDownloadService extends Service implements Runnable
 	 */
 	private void showNotification(long localID)
 	{
-		MyLog.d(LOG_TAG, "showNotification() called");
+		L.d(LOG_TAG, "showNotification() called");
 		int icon = android.R.drawable.stat_sys_download_done;
 		CharSequence tickerText = getString(R.string.download_successful);
 		long when = System.currentTimeMillis();
 		CharSequence contentTitle = getString(R.string.app_name);
 
-		MyLog.d(LOG_TAG, "Changing collection type in the DB!");
+		L.d(LOG_TAG, "Changing collection type in the DB!");
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
 		db.open();
 		Collection collection;
@@ -192,7 +192,7 @@ public class CollectionDownloadService extends Service implements Runnable
 		
 		if (mNumber == 1)
 		{
-			MyLog.d(LOG_TAG, "showNotification() called");
+			L.d(LOG_TAG, "showNotification() called");
 			int icon = android.R.drawable.stat_sys_download;
 			CharSequence tickerText = getString(R.string.collection_being_downloaded);
 			long when = System.currentTimeMillis();
@@ -209,7 +209,7 @@ public class CollectionDownloadService extends Service implements Runnable
 		}
 		else
 		{
-			MyLog.d(LOG_TAG, "showNotification() called");
+			L.d(LOG_TAG, "showNotification() called");
 			int icon = android.R.drawable.stat_sys_download;
 			CharSequence tickerText = getString(R.string.multiple_collections_being_downloaded);
 			long when = System.currentTimeMillis();

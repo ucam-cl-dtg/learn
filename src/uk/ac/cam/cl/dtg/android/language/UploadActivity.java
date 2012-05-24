@@ -49,7 +49,7 @@ public class UploadActivity extends Activity implements Runnable
 			if (!disabled)
 			{
 
-				MyLog.d(LOG_TAG, "Handling the message");
+				L.d(LOG_TAG, "Handling the message");
 
 				String response = msg.getData().getString(BUNDLE_RESPONSE);
 
@@ -131,7 +131,7 @@ public class UploadActivity extends Activity implements Runnable
 	 */
 	private void fillData()
 	{
-		MyLog.d(LOG_TAG, "fillData() called");
+		L.d(LOG_TAG, "fillData() called");
 
 		// check if there are any uploadable collections
 		ApplicationDBAdapter db = new ApplicationDBAdapter(this);
@@ -254,7 +254,7 @@ public class UploadActivity extends Activity implements Runnable
 			switch (requestCode)
 			{
 			case ACTIVITY_CHOOSE_COLLECTION:
-				MyLog.d(LOG_TAG, "Starting the upload service....");
+				L.d(LOG_TAG, "Starting the upload service....");
 				long collectionID = data.getLongExtra(CollectionBrowser.INTENT_COLLECTION_ID, 0);
 
 				// check whether the collection has been uploaded before
@@ -317,7 +317,7 @@ public class UploadActivity extends Activity implements Runnable
 	 */
 	private void showProgressDialog()
 	{
-		MyLog.d(LOG_TAG, "showProgressDialog() called");
+		L.d(LOG_TAG, "showProgressDialog() called");
 
 		// show the progress dialog and start sending
 		mProgressDialog = new ProgressDialog(this);

@@ -1,6 +1,6 @@
 package uk.ac.cam.cl.dtg.android.language.graphics;
 
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.view.View;
@@ -92,7 +92,7 @@ public class ThreeComponentContainer extends Container {
 		try {
 			c.drawYourselfOnto(firstComponent, defaultParams);
 		} catch (Exception e) {
-			MyLog
+			L
 					.e(LOG_TAG,
 							"Cannot draw the component 0 onto the container - leaving the frame blank");
 		}
@@ -102,7 +102,7 @@ public class ThreeComponentContainer extends Container {
 		try {
 			c.drawYourselfOnto(secondComponent, defaultParams);
 		} catch (Exception e) {
-			MyLog
+			L
 					.e(LOG_TAG,
 							"Cannot draw the component 1 onto the container - leaving the frame blank");
 		}
@@ -111,7 +111,7 @@ public class ThreeComponentContainer extends Container {
 		try {
 			c.drawYourselfOnto(thirdComponent, defaultParams);
 		} catch (Exception e) {
-			MyLog
+			L
 					.e(LOG_TAG,
 							"Cannot draw the component 2 onto the container - leaving the frame blank");
 		}

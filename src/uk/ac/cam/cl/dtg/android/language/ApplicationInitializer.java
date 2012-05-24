@@ -284,25 +284,25 @@ public class ApplicationInitializer
 	{
 		boolean folderExists;
 
-		MyLog.d(LOG_TAG, COLLECTIONS_FOLDER);
+		L.d(LOG_TAG, COLLECTIONS_FOLDER);
 		
 		// check whether collections folder exists
 		File collectionsFolder = new File(COLLECTIONS_FOLDER);
 		if (collectionsFolder.exists())
 		{
-			MyLog.d(LOG_TAG, "Folder for the collections exists");
+			L.d(LOG_TAG, "Folder for the collections exists");
 			folderExists = true;
 		} else
 		{
-			MyLog.d(LOG_TAG, "Collection folder does not exist - creating one");
+			L.d(LOG_TAG, "Collection folder does not exist - creating one");
 			if (collectionsFolder.mkdir())
 			{
-				MyLog.d(LOG_TAG, "Collection folder successfully created");
+				L.d(LOG_TAG, "Collection folder successfully created");
 				folderExists = true;
 
 			} else
 			{
-				MyLog.e(LOG_TAG, "Collection folder could not have been created");
+				L.e(LOG_TAG, "Collection folder could not have been created");
 				AlertDialog.Builder noCollectionsFolderAlert = new AlertDialog.Builder(mContext);
 				noCollectionsFolderAlert.setTitle(R.string.alert_cannot_locate_collections_folder_title);
 				noCollectionsFolderAlert.setIcon(android.R.drawable.ic_dialog_alert);
@@ -398,7 +398,7 @@ public class ApplicationInitializer
 
                   localIDs[i] = c.getRowID();
                 } catch (IOException e){
-                  MyLog.e(LOG_TAG, e.getMessage());
+                  L.e(LOG_TAG, e.getMessage());
                 }
               }
 
@@ -524,7 +524,7 @@ public class ApplicationInitializer
 	 */
 	private void initializeUniqueID()
 	{
-		MyLog.d(LOG_TAG, "Initializing unique install ID");
+		L.d(LOG_TAG, "Initializing unique install ID");
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 		String uniqueID = prefs.getString(mContext.getString(R.string.preferences_unique_id), "");
@@ -554,9 +554,9 @@ public class ApplicationInitializer
 
 			editor.commit();
 
-			MyLog.d(LOG_TAG, "ID not set, setting new one - " + newUniqueID);
+			L.d(LOG_TAG, "ID not set, setting new one - " + newUniqueID);
 		} else
-			MyLog.d(LOG_TAG, "ID already set, it is - " + uniqueID);
+			L.d(LOG_TAG, "ID already set, it is - " + uniqueID);
 
 	}
 
@@ -574,10 +574,10 @@ public class ApplicationInitializer
 		try
 		{
 			boolean fileResult = f.createNewFile();
-			MyLog.d(LOG_TAG, f.getAbsolutePath() + " file has been created - " + fileResult);
+			L.d(LOG_TAG, f.getAbsolutePath() + " file has been created - " + fileResult);
 		} catch (IOException e)
 		{
-			MyLog.e(LOG_TAG,
+			L.e(LOG_TAG,
 					"Exception caught while trying to create a .nomedia file in the directory");
 		}
 	}

@@ -4,7 +4,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import uk.ac.cam.cl.dtg.android.language.CardEditor;
 import uk.ac.cam.cl.dtg.android.language.MultipleChoiceAnswer;
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.R;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
 import android.app.AlertDialog;
@@ -165,7 +165,7 @@ public class Editable extends Component
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while drawing image - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while drawing image - " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -244,7 +244,7 @@ public class Editable extends Component
 			}
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while describing a component in XML - "
+			L.e(LOG_TAG, "Exception caught while describing a component in XML - "
 					+ e.getMessage());
 		}
 	}

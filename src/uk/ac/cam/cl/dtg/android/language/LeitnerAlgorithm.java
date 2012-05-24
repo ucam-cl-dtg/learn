@@ -143,7 +143,7 @@ public class LeitnerAlgorithm extends LearningAlgorithm
 				return mToShow.remove(0);
 			} catch (Exception e)
 			{
-				MyLog.d(LOG_TAG, "compileToShow() returned empty");
+				L.d(LOG_TAG, "compileToShow() returned empty");
 				return null;
 			}
 		}
@@ -157,7 +157,7 @@ public class LeitnerAlgorithm extends LearningAlgorithm
 	protected void compileToShow()
 	{
 		// reset the bucket count
-		MyLog.d(LOG_TAG, "Starting compileToShow()");
+		L.d(LOG_TAG, "Starting compileToShow()");
 
 		Set<Long> set = mCards.keySet();
 		for (long l : set)
@@ -207,7 +207,7 @@ public class LeitnerAlgorithm extends LearningAlgorithm
 		{
 			bc = mCards.get(l);
 
-			MyLog.d(LOG_TAG, "Putting card " + l + " into bucket " + bc.bucket);
+			L.d(LOG_TAG, "Putting card " + l + " into bucket " + bc.bucket);
 
 			if (mBuckets.get(bc.bucket) == null)
 			{
@@ -241,7 +241,7 @@ public class LeitnerAlgorithm extends LearningAlgorithm
 
 		int probabilityTotal = 0;
 
-		MyLog.d(LOG_TAG, "Total cards - " + mCards.size());
+		L.d(LOG_TAG, "Total cards - " + mCards.size());
 
 		int bucketMax = 0;
 
@@ -267,7 +267,7 @@ public class LeitnerAlgorithm extends LearningAlgorithm
 			Collections.shuffle(b.cards);
 		}
 
-		MyLog.d(LOG_TAG, "Starting adding things to mToShow");
+		L.d(LOG_TAG, "Starting adding things to mToShow");
 
 		Random random = new Random();
 
@@ -300,7 +300,7 @@ public class LeitnerAlgorithm extends LearningAlgorithm
 			i++;
 		}
 
-		MyLog.d(LOG_TAG, "Sorting finished, final i was - " + i);
+		L.d(LOG_TAG, "Sorting finished, final i was - " + i);
 
 	}
 

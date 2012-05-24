@@ -223,7 +223,7 @@ public class CollectionBrowser extends ListActivity
 		{
 			Collection selected = mAdapter.mItemsShown.get(position);
 
-			MyLog.d(LOG_TAG, "Selected collection that has ID - " + selected.getRowID());
+			L.d(LOG_TAG, "Selected collection that has ID - " + selected.getRowID());
 
 			switch (mAction)
 			{

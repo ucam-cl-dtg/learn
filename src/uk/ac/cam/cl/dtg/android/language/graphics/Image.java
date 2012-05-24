@@ -7,7 +7,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import uk.ac.cam.cl.dtg.android.language.ApplicationInitializer;
 import uk.ac.cam.cl.dtg.android.language.CardDBAdapter;
-import uk.ac.cam.cl.dtg.android.language.MyLog;
+import uk.ac.cam.cl.dtg.android.language.L;
 import uk.ac.cam.cl.dtg.android.language.ResourceHelper;
 import uk.ac.cam.cl.dtg.android.language.ResourceNotFoundException;
 import uk.ac.cam.cl.dtg.android.language.XMLStrings;
@@ -64,9 +64,9 @@ public class Image extends Component
 	        + "." + suffix));
 
 	    if (mView == null)
-	      MyLog.e(LOG_TAG, "Produced ImageView is null");
+	      L.e(LOG_TAG, "Produced ImageView is null");
 	  } catch (ResourceNotFoundException e){
-	    MyLog.e(LOG_TAG, e.getMessage());
+	    L.e(LOG_TAG, e.getMessage());
 	  }
 	}
 
@@ -79,7 +79,7 @@ public class Image extends Component
 	{
 		try
 		{
-			MyLog.d("Image", "Displaying image at " + source);
+			L.d("Image", "Displaying image at " + source);
 
 			// try decoding bitmap
 			ImageView iv = new ImageView(context);
@@ -97,7 +97,7 @@ public class Image extends Component
 
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while rendering image - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while rendering image - " + e.getMessage());
 			return null;
 		}
 
@@ -125,7 +125,7 @@ public class Image extends Component
 
 			BitmapFactory.Options optionsSize = new BitmapFactory.Options();
 
-			MyLog.d(LOG_TAG, "Free memory before decoding bounds - "
+			L.d(LOG_TAG, "Free memory before decoding bounds - "
 					+ Runtime.getRuntime().freeMemory());
 
 			optionsSize.inJustDecodeBounds = true;
@@ -133,10 +133,10 @@ public class Image extends Component
 			int imWidth = optionsSize.outWidth;
 			int imHeight = optionsSize.outHeight;
 
-			MyLog.d(LOG_TAG, "Free memory after decoding bounds - "
+			L.d(LOG_TAG, "Free memory after decoding bounds - "
 					+ Runtime.getRuntime().freeMemory());
 
-			MyLog.d(LOG_TAG, "Image size is " + imWidth + "x" + imHeight);
+			L.d(LOG_TAG, "Image size is " + imWidth + "x" + imHeight);
 
 			int compression = 1;
 			if (!small)
@@ -160,7 +160,7 @@ public class Image extends Component
 
 			}
 
-			MyLog.d(LOG_TAG, "Compression for image is " + compression);
+			L.d(LOG_TAG, "Compression for image is " + compression);
 
 			// reset the input stream and create the image bitmap under memory
 			// restrictions
@@ -176,13 +176,13 @@ public class Image extends Component
 			opts.inSampleSize = compression;
 			Bitmap bitmap = BitmapFactory.decodeStream(bitmapInputStream, null, opts);
 
-			MyLog.d(LOG_TAG, "Free memory after decoding image - "
+			L.d(LOG_TAG, "Free memory after decoding image - "
 					+ Runtime.getRuntime().freeMemory());
 
 			return bitmap;
 		} catch (Throwable e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while decoding bitmap - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while decoding bitmap - " + e.getMessage());
 			return null;
 		}
 	}
@@ -212,7 +212,7 @@ public class Image extends Component
 			serializer.attribute("", XMLStrings.XML_IMAGE_HEIGHT, String.valueOf(mHeight));
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while serializing image - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while serializing image - " + e.getMessage());
 		}
 	}
 

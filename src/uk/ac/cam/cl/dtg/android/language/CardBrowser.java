@@ -100,7 +100,7 @@ public class CardBrowser extends ListActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		MyLog.d(LOG_TAG, "onCreate() called");
+		L.d(LOG_TAG, "onCreate() called");
 
 		super.onCreate(savedInstanceState);
 
@@ -134,7 +134,7 @@ public class CardBrowser extends ListActivity
 			getListView().setTextFilterEnabled(true);
 
 			fillData();
-			MyLog.d(LOG_TAG, "onCreate() finished");
+			L.d(LOG_TAG, "onCreate() finished");
 		}
 	}
 
@@ -144,7 +144,7 @@ public class CardBrowser extends ListActivity
 	 */
 	private void fillData()
 	{
-		MyLog.d(LOG_TAG, "fillData() called");
+		L.d(LOG_TAG, "fillData() called");
 
 		CardDBAdapter db = new CardDBAdapter();
 
@@ -172,7 +172,7 @@ public class CardBrowser extends ListActivity
 			}
 		}
 
-		MyLog.d(LOG_TAG, "fillData() finished");
+		L.d(LOG_TAG, "fillData() finished");
 	}
 
 	@Override
@@ -338,14 +338,14 @@ public class CardBrowser extends ListActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		MyLog.d(LOG_TAG, "onActivityResult() called");
+		L.d(LOG_TAG, "onActivityResult() called");
 
 		// refresh the data
 		fillData();
 
 		super.onActivityResult(requestCode, resultCode, data);
 
-		MyLog.d(LOG_TAG, "onActivityResult() finished");
+		L.d(LOG_TAG, "onActivityResult() finished");
 	}
 	
 	/**
@@ -385,7 +385,7 @@ public class CardBrowser extends ListActivity
 			@Override
 			protected FilterResults performFiltering(CharSequence arg0)
 			{
-				MyLog.d(LOG_TAG, "performFiltering(" + arg0 + ") called");
+				L.d(LOG_TAG, "performFiltering(" + arg0 + ") called");
 
 				ArrayList<Card> result = new ArrayList<Card>();
 
@@ -439,7 +439,7 @@ public class CardBrowser extends ListActivity
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
-			MyLog.d(LOG_TAG, "getView() called for position " + position);
+			L.d(LOG_TAG, "getView() called for position " + position);
 
 			View view;
 			ViewHolder viewHolder;

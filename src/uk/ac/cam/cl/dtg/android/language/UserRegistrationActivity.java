@@ -62,18 +62,18 @@ public class UserRegistrationActivity extends Activity implements Runnable
 		{
 			if (!disabled)
 			{
-				MyLog.d(LOG_TAG, "Handle message called");
+				L.d(LOG_TAG, "Handle message called");
 
-				MyLog.d(LOG_TAG, "Handling the message");
+				L.d(LOG_TAG, "Handling the message");
 
 				String response = msg.getData().getString(BUNDLE_RESPONSE);
 
 				if (mProgressDialog != null)
 				{
-					MyLog.d(LOG_TAG, "Progress dialog is not null - dismissing it");
+					L.d(LOG_TAG, "Progress dialog is not null - dismissing it");
 					mProgressDialog.dismiss();
 				} else
-					MyLog.d(LOG_TAG, "Progress dialog is null");
+					L.d(LOG_TAG, "Progress dialog is null");
 
 				showingDialog = false;
 
@@ -87,12 +87,12 @@ public class UserRegistrationActivity extends Activity implements Runnable
 					responseCode = SERVER_RESPONSE_SYSTEM_FAULT;
 				}
 
-				MyLog.d(LOG_TAG, "Response code is - " + responseCode);
+				L.d(LOG_TAG, "Response code is - " + responseCode);
 
 				switch (responseCode)
 				{
 				case SERVER_RESPONSE_OK:
-					MyLog.d(LOG_TAG, "Handling positive response");
+					L.d(LOG_TAG, "Handling positive response");
 
 					// change the preferences
 					SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(UserRegistrationActivity.this);
@@ -157,7 +157,7 @@ public class UserRegistrationActivity extends Activity implements Runnable
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		MyLog.d(LOG_TAG, "onCreate() called");
+		L.d(LOG_TAG, "onCreate() called");
 
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.userregistrationform);
@@ -221,7 +221,7 @@ public class UserRegistrationActivity extends Activity implements Runnable
 	 */
 	private void showProgressDialog()
 	{
-		MyLog.d(LOG_TAG, "showProgressDialog() called");
+		L.d(LOG_TAG, "showProgressDialog() called");
 
 		showingDialog = true;
 
@@ -292,12 +292,12 @@ public class UserRegistrationActivity extends Activity implements Runnable
 
 			String response = ServerHelper.getResponseString(REGISTRATION_URL, form);
 			
-			MyLog.d(LOG_TAG, "Response of the server was - " + response);
+			L.d(LOG_TAG, "Response of the server was - " + response);
 
 			return response;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while sending the form - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while sending the form - " + e.getMessage());
 			return null;
 		}
 	}
@@ -340,11 +340,11 @@ public class UserRegistrationActivity extends Activity implements Runnable
 	protected void onPause()
 	{
 		// stop the progress dialog
-		MyLog.d(LOG_TAG, "onPause() is called");
+		L.d(LOG_TAG, "onPause() is called");
 
 		if (mProgressDialog != null)
 		{
-			MyLog.d(LOG_TAG, "Dismissing the dialog in onPause()");
+			L.d(LOG_TAG, "Dismissing the dialog in onPause()");
 			mProgressDialog.dismiss();
 			mProgressDialog = null;
 		}
@@ -357,7 +357,7 @@ public class UserRegistrationActivity extends Activity implements Runnable
 	{
 		super.onResume();
 
-		MyLog.d(LOG_TAG, "onResume() is called");
+		L.d(LOG_TAG, "onResume() is called");
 
 		if (showingDialog)
 			showProgressDialog();

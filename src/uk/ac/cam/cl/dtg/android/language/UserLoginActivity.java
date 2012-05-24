@@ -206,12 +206,12 @@ public class UserLoginActivity extends Activity implements Runnable
 
 			String response = ServerHelper.getResponseString(USER_CHECK_URL, form);
 			
-			MyLog.d(LOG_TAG, "Response of the server was - " + response);
+			L.d(LOG_TAG, "Response of the server was - " + response);
 
 			return response;
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Exception caught while sending the form - " + e.getMessage());
+			L.e(LOG_TAG, "Exception caught while sending the form - " + e.getMessage());
 			return "-1";
 		}
 	}
@@ -234,11 +234,11 @@ public class UserLoginActivity extends Activity implements Runnable
 	protected void onPause()
 	{
 		// stop the progress dialog
-		MyLog.d(LOG_TAG, "onPause() is called");
+		L.d(LOG_TAG, "onPause() is called");
 
 		if (mProgressDialog != null)
 		{
-			MyLog.d(LOG_TAG, "Dismissing the dialog in onPause()");
+			L.d(LOG_TAG, "Dismissing the dialog in onPause()");
 			mProgressDialog.dismiss();
 			mProgressDialog = null;
 		}
@@ -251,7 +251,7 @@ public class UserLoginActivity extends Activity implements Runnable
 	{
 		super.onResume();
 
-		MyLog.d(LOG_TAG, "onResume() is called");
+		L.d(LOG_TAG, "onResume() is called");
 
 		if (mDialogShown && mProgressDialog == null)
 			showProgressDialog();

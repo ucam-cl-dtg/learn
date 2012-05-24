@@ -63,7 +63,7 @@ public class ResourceHelper
 		try {
 		if (path.equals(destinationFolder))
 		{
-			MyLog.d(LOG_TAG, "The resource is already at the same folder - no need to copy it again");
+			L.d(LOG_TAG, "The resource is already at the same folder - no need to copy it again");
 
 			// it's already at the folder we need
 			long resourceID = resolveIntoResourceID(mContext, source);
@@ -77,7 +77,7 @@ public class ResourceHelper
 
 			  referenceCount++;
 
-			  MyLog.d(LOG_TAG, "Updating resource count to " + referenceCount
+			  L.d(LOG_TAG, "Updating resource count to " + referenceCount
 			      + " for the resource with ID " + resourceID);
 
 			  db.updateResourceReferenceCount(resourceID, referenceCount);
@@ -88,7 +88,7 @@ public class ResourceHelper
 			return resourceID;
 		} 
 		} catch (ResourceNotFoundException e){
-		  MyLog.w(LOG_TAG, e.getMessage());
+		  L.w(LOG_TAG, e.getMessage());
 		}
 		// Else or if exception
 		try
@@ -105,7 +105,7 @@ public class ResourceHelper
 
 		  String suffix = getSuffix(mContext, source);
 
-		  MyLog.d(LOG_TAG, "Suffix returned was ." + suffix);
+		  L.d(LOG_TAG, "Suffix returned was ." + suffix);
 
 		  CardDBAdapter db = new CardDBAdapter();
 		  db.open(collectionID);
@@ -146,7 +146,7 @@ public class ResourceHelper
 		      @Override
           public void onScanCompleted(String path, Uri uri)
 		      {
-		        MyLog.d(LOG_TAG, "Media scanner completed scan, path is - " + path
+		        L.d(LOG_TAG, "Media scanner completed scan, path is - " + path
 		            + ", Uri is - " + uri.toString());
 
 		        mConnection.disconnect();
@@ -159,7 +159,7 @@ public class ResourceHelper
 		  return id;
 		} catch (Exception e)
 		{
-		  MyLog.e(LOG_TAG, "Exception caught while copying file - " + e.getMessage());
+		  L.e(LOG_TAG, "Exception caught while copying file - " + e.getMessage());
 		  e.printStackTrace();
 		  return -1;
 		}
@@ -214,7 +214,7 @@ public class ResourceHelper
 
 	    return file.delete();
 	  } catch (ResourceNotFoundException e){
-	    MyLog.w(LOG_TAG, e.getMessage());
+	    L.w(LOG_TAG, e.getMessage());
 	    return false;
 	  }
 	}
@@ -243,12 +243,12 @@ public class ResourceHelper
 				return splits[splits.length - 1];
 			} else
 			{
-				MyLog.e(LOG_TAG, "Could not decode the suffix for the resource");
+				L.e(LOG_TAG, "Could not decode the suffix for the resource");
 				return "";
 			}
 		} else
 		{
-			MyLog.d(LOG_TAG, "Last segment of the path is " + uri.getLastPathSegment());
+			L.d(LOG_TAG, "Last segment of the path is " + uri.getLastPathSegment());
 			String[] splits = uri.getLastPathSegment().split("\\.");
 			return splits[splits.length - 1];
 		}
@@ -270,17 +270,17 @@ public class ResourceHelper
 				for (int i = 0; i < splits.length - 1; i++)
 					result = result.concat(splits[i] + "/");
 
-				MyLog.d(LOG_TAG, "getPath() result is - " + result);
+				L.d(LOG_TAG, "getPath() result is - " + result);
 
 				return result;
 			} else
 			{
-				MyLog.e(LOG_TAG, "Could not decode the path for the resource");
+				L.e(LOG_TAG, "Could not decode the path for the resource");
 				return "";
 			}
 		} else
 		{
-			MyLog.d(LOG_TAG, "Last segment of the path is " + uri.getPath());
+			L.d(LOG_TAG, "Last segment of the path is " + uri.getPath());
 			String[] splits = uri.getPath().split("\\/");
 
 			String result = "";
@@ -288,7 +288,7 @@ public class ResourceHelper
 			for (int i = 0; i < splits.length - 1; i++)
 				result = result.concat(splits[i] + "/");
 
-			MyLog.d(LOG_TAG, "getPath() result is - " + result);
+			L.d(LOG_TAG, "getPath() result is - " + result);
 
 			return result;
 		}
@@ -335,7 +335,7 @@ public class ResourceHelper
 			  db.close();
 			}
 
-			MyLog.d(LOG_TAG, "Ready to read card, XML of it is - " + card.getXmlDescription());
+			L.d(LOG_TAG, "Ready to read card, XML of it is - " + card.getXmlDescription());
 
 			StringReader stringReader = new StringReader(card.getXmlDescription());
 
@@ -344,7 +344,7 @@ public class ResourceHelper
 			reader.parse(iSource);
 		} catch (Exception e)
 		{
-			MyLog.e(LOG_TAG, "Error while parsing XML - " + e.getMessage()
+			L.e(LOG_TAG, "Error while parsing XML - " + e.getMessage()
 					+ ". Printing stack trace:");
 
 			e.printStackTrace();
@@ -363,19 +363,19 @@ public class ResourceHelper
 
 		  if (referenceCount > 1)
 		  {
-		    MyLog.d(LOG_TAG, "Reducing reference count for resource " + resourceID + " to "
+		    L.d(LOG_TAG, "Reducing reference count for resource " + resourceID + " to "
 		        + (referenceCount - 1));
 		    db.updateResourceReferenceCount(resourceID, referenceCount - 1);
 		  } else
 		  {
-		    MyLog.d(LOG_TAG, "Deleting the resource " + resourceID);
+		    L.d(LOG_TAG, "Deleting the resource " + resourceID);
 		    this.deleteResourceFile(collectionID, resourceID);
 
 		    db.deleteResource(resourceID);
 
 		  }
 		} catch (ResourceNotFoundException e) {
-		  MyLog.w(LOG_TAG, e.getMessage());
+		  L.w(LOG_TAG, e.getMessage());
 		} finally {
 		  db.close();
 		}
@@ -417,7 +417,7 @@ public class ResourceHelper
 		public void startElement(String uri, String localName, String qName, Attributes attributes)
 				throws SAXException
 		{
-			MyLog.d(LOG_TAG, "startElement() called");
+			L.d(LOG_TAG, "startElement() called");
 			if (localName.equals(XMLStrings.XML_ELEMENT))
 			{
 				String elType = attributes.getValue(XMLStrings.XML_TYPE);
